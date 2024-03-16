@@ -1,0 +1,37 @@
+#header{
+    margin-top:20px;
+    margin-bottom: 50px;
+}
+#header a {
+    text-decoration: none;
+    color: black;
+    padding:10px;
+    margin-left:20px;
+}
+#header .btn-sign-up{
+    border: solid 1px #F53855!important;
+    color: #F53855 !important;
+}
+#header button{
+    border-radius:100px!important;
+    font-weight:600!important;
+}
+#header .btn-sign-up:hover,
+#header .btn-sign-in:hover{
+    transform: translateY(-5px);
+}
+
+#header .btn{
+    width:30%;
+}
+#header .header-content
+,#header .header-logo{
+    margin-top: 7px;
+}
+#header img{
+    width:25px;
+    margin-right:10px;
+}
+#header .header-content a{
+    padding-right:30px;
+}

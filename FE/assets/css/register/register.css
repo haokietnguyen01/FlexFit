@@ -1,0 +1,72 @@
+#register img{
+    width: 60px;
+    height:60px;
+}
+#register .register_title p{
+    font-size:40px;
+    font-weight: 600;
+    color:#F53855;
+}
+#register .register_title{
+    margin-top:20px;
+    margin-left:5%;
+}
+#register .register_logo_name{
+    margin-top:30px;
+}
+#register .register_logo_name p{
+    font-size:40px;
+    font-weight:600;
+}
+#register .register_logo{
+    margin-top:30px;
+}
+#register .register_form{
+    margin-left:5%;
+}
+#register input{
+    padding: 10px;
+    border-radius: 10px;
+    border:none;
+    outline:0;
+    background-color: #F1F3F6;
+    width: 400px;
+}
+#register .register_form .register_form_password{
+    margin-right:35.3%;
+}
+#register .register_form .register_form_confirm_password{
+    margin-right:29.5%;
+}
+#register .register_form .register_form_email{
+    margin-right:31.9%;
+}
+#register .register_form p{
+    color:#555555;
+}
+#register button{
+    color:white;
+    background-color: #F53855;
+    width:437px;
+    box-shadow:0px 5px 10px #FD74014D;
+}
+#register .register_form_btn{
+    margin-top:30px;
+    margin-bottom: 100px;
+}
+#register i{
+    color:white;
+    background-color: red;
+    padding-top:12px;
+    padding-bottom: 12px;
+    padding-left:12px;
+    padding-right: 12px;
+    border-radius: 8px;
+    font-size:18px;
+}
+#register button:hover{
+    border: solid 1px #F53855!important;
+    color: #F53855 !important;
+    background-color: white!important;
+    transform: translateY(-5px);
+}
