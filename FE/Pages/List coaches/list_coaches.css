@@ -1,0 +1,66 @@
+#list_coaches .padding{
+    padding:30px; 
+    border: 1px solid #C4C4C4;
+    height:470px;
+}
+
+#list_coaches .rating i,
+#list_coaches .list_coaches_star i{
+    color:#FFBF1A;
+    font-size:23px;
+    margin-right:10px;
+}
+#list_coaches .rating input{
+    margin-right:30px;
+    width:25px;
+    height:25px;
+    margin-bottom: 20px;
+}
+#list_coaches .rating_title{
+    font-size:20px;
+    font-weight:500;
+}
+#list_coaches .rating_star_flex{
+    display: flex;
+    align-items: center;
+}
+#list_coaches img{
+    width:130px;
+    height:200px;
+}
+#list_coaches .list_coaches_detail{
+    padding:10px;
+    border: 1px solid #C4C4C4;
+}
+#list_coaches .list_coaches_container{
+    margin-left: 40px;
+}
+#list_coaches .list_coaches_padding{
+    padding-left:30px;
+}
+#list_coaches .list_coaches_name{
+    font-size:18px;
+    font-weight:500
+}
+#list_coaches .list_coaches_items span{
+    padding-left:20px;
+}
+#list_coaches .list_coaches_padding p{
+    margin-bottom: 5px;
+}
+#list_coaches .list_coaches_detail button{
+    background-color:#F53838;
+    color:white;
+    width: 100px;
+}
+#list_coaches .list_coaches_search button{
+    background-color: #F53838;
+    margin-left:10px;
+    padding-left:15px;
+    padding-right:15px;
+}
+#list_coaches .list_coaches_search input{
+    outline:0;
+    border: 1px solid #F53838;
+    padding-left:10px;
+}
