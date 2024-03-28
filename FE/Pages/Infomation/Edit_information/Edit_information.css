@@ -20,9 +20,6 @@
 #edit_information .edit_information_setting a{
     color:black;
 }
-#edit_information .edit_information_detail a{
-    float:left;
-}
 #edit_information .edit_information_border{
     border-right:1px solid #858585;
 }
@@ -69,4 +66,23 @@
     padding:10px;
     color:red;
     border-radius:10px;
+}
+#edit_information a{
+    display:block;
+}
+#edit_information span:hover {
+    color:red;
+}
+#edit_information .padding-security{
+    margin-left:55px;
+}
+#edit_information .padding-security a{
+   font-size: 12px;
+   color:#858585
+}
+#edit_information .padding-security a:hover{
+    color:red
+}
+#edit_information .padding-security i{
+    margin-right:13px;
 }

@@ -1322,7 +1322,6 @@ dat.GUI = dat.gui.GUI = (function (
         });
         window.innerHeight - b - 20 < c
           ? (g.addClass(a.domElement, k.CLASS_TOO_TALL),
-            // (a.__ul.style.height = window.innerHeight - b - 20 + "px"))
             (a.__ul.style.height = window.innerHeight - b - 20 + "px"))
           : (g.removeClass(a.domElement, k.CLASS_TOO_TALL),
             (a.__ul.style.height = "auto"));
