@@ -19,6 +19,7 @@ return new class extends Migration
             $table->enum('sex', ['male', 'female', 'pending'])->default('pending');
             $table->timestamp('email_verified_at')->nullable();
             $table->integer('age')->nullable();
+            $table->string('image')->nullable();
             $table->string('phone')->nullable();
             $table->enum('role', ['admin', 'user', 'coach'])->default('user');
             $table->integer('payment_id')->nullable();
