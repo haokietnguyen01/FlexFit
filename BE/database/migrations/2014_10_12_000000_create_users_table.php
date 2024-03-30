@@ -16,13 +16,13 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->string('name');
-            $table->enum('sex', ['male', 'female', 'pending'])->default('pending');
-            $table->timestamp('email_verified_at')->nullable();
+            $table->enum('sex', ['male', 'female', 'pending'])->nullable();
             $table->integer('age')->nullable();
             $table->string('image')->nullable();
             $table->string('phone')->nullable();
-            $table->enum('role', ['admin', 'user', 'coach'])->default('user');
+            $table->unsignedTinyInteger('role_id')->default(1)->comment('0: Admin, 1: User, 2: Coach');
             $table->integer('payment_id')->nullable();
+            $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
