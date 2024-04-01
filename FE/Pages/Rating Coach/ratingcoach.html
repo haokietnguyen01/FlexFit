@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Toast Notifications</title>
-    <link rel="stylesheet" href="rating.css" />
+    <link rel="stylesheet" href="./ratingcoach.css" />
   </head>
   <body>
     <div id="rating">
@@ -26,9 +26,9 @@
   </body>
   <script>
     function calcRate(r) {
- const f = ~~r,
- id = 'star' + f + (r % f ? 'half' : '')
- id && (document.getElementById(id).checked = !0)
+    const f = ~~r,
+    id = 'star' + f + (r % f ? 'half' : '')
+    id && (document.getElementById(id).checked = !0)
 }
   </script>
 </html>

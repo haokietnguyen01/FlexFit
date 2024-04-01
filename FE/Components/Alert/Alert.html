@@ -5,67 +5,61 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pure HTML + CSS Alerts with Dismiss</title>
-    <link rel="stylesheet" href="Arlert.css">
+    <title>Alert</title>
+    <link rel="stylesheet" href="./Arlert.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer"
+    />
 </head>
 
 <body>
-
-    <div class="main">
-
-        <!-- Alert message for displaying an error -->
-        <div class="alert error">
-            <input type="checkbox" id="alert1" />
-            <label class="close" title="close" for="alert1">
-            <i class="icon-remove"></i>
-          </label>
-            <p class="text">
-                <strong>Error!</strong> This is an error message.
-            </p>
+    </div>
+        <div class='alert alert__primary spacer' role='alert'>
+            <i class="fas fa-exclamation-circle alert__icon"></i>
+            <p class='alert__text'>This is a Info alert message.</p>
+            <button type="button" class="alert__close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true"><i class="fas fa-times-circle alert__close"></i></span>
+          </button>
         </div>
-        <!-- Alert message for displaying a success message -->
-        <div class="alert success">
-            <input type="checkbox" id="alert2" />
-            <label class="close" title="close" for="alert2">
-            <i class="icon-remove"></i>
-          </label>
-            <p class="text">
-                <strong>Success!</strong> This is a success alert.
-            </p>
-        </div>
-        <!-- Alert message for displaying information -->
-        <div class="alert info">
-            <input type="checkbox" id="alert3" />
-            <label class="close" title="close" for="alert3">
-            <i class="icon-remove"></i>
-          </label>
-            <p class="text">
-                This alert message provides some information.
-            </p>
-        </div>
-        <!-- Alert message for displaying a warning -->
-        <div class="alert warning">
-            <input type="checkbox" id="alert4" />
-            <label class="close" title="close" for="alert4">
-            <i class="icon-remove"></i>
-          </label>
-            <p class="text">
-                <strong>Warning!</strong> This is warning alert.
-            </p>
-        </div>
-        <!-- A standard alert message -->
-        <div class="alert">
-            <input type="checkbox" id="alert5" />
-            <label class="close" title="close" for="alert5">
-            <i class="icon-remove"></i>
-          </label>
-            <p class="text">
-                This is a standard alert message with no style.
-            </p>
+ 
+        <div class='alert alert__secondary spacer' role='alert'>
+            <i class="fas fa-exclamation-circle alert__icon"></i>
+            <p class='alert__text'>This is a standard alert message.</p>
+            <button type="button" class="alert__close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true"><i class="fas fa-times-circle alert__close"></i></span>
+          </button>
         </div>
 
+        <div class='alert alert__warning spacer' role='alert'>
+            <i class="fas fa-exclamation-triangle alert__icon"></i>
+            <p class='alert__text'>This is a warning alert message. </p>
+            <button type="button" class="alert__close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true"><i class="fas fa-times-circle alert__close"></i></span>
+          </button>
+        </div>
+        <div class='alert alert__error spacer' role='alert'>
+            <i class="fas fa-minus-circle alert__icon"></i>
+            <p class='alert__text'>This is a danger alert message.</p>
+            <button type="button" class="alert__close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true"><i class="fas fa-times-circle alert__close"></i></span>
+          </button>
+        </div>
+        <div class='alert alert__success spacer' role='alert'>
+            <i class="fas fa-check-circle alert__icon"></i>
+            <p class='alert__text'>This is a success alert message.</p>
+            <button type="button" class="alert__close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true"><i class="fas fa-times-circle alert__close"></i></span>
+          </button>
 
     </div>
 </body>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+   $('.alert__close').click(function() {
+    $(this).parent().addClass('closed');
+});
+
+</script>
+
 </html>
+

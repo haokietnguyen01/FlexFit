@@ -1,0 +1,69 @@
+#user .logo img{
+    width:30px;
+    height:50px;
+}
+#user .border-container{
+    padding-left:18%;
+    border: 1px solid #0000001A;
+    height:500px;
+}
+#user .logo p{
+    margin-top:11px;
+    margin-left:20px;
+    font-weight:700;
+    font-size:18px;
+}
+#user .menu_detail span{
+    margin-left:20px;
+}
+#user .menu_detail i{
+    margin-right:10px;
+}
+#user .menu_detail a{
+    margin-left:10px;
+    text-decoration: none;
+    color:#131313;
+    display:block;
+}
+#user .menu_detail .w{
+    width:30px;
+}
+#user .search-border{
+    border:1px solid #0000001A ;
+    padding: 10px;
+    width:450px;
+    margin-left:50px;
+}
+#user .search-border i{
+    margin-left:10px;
+}
+#user .search-border input{
+    border:none;
+    outline:0;
+    margin-left:20px;
+}
+#user .img_personal img{
+    width:50px; 
+}
+#user .table_user{
+    width:10000px
+}
+#user .padding{
+    padding-left:20px;
+    padding-right:40px;
+}
+#user .padding {
+    font-size:11px;
+}
+#user .table_user {
+    font-size: 11px;
+}
+#user .table{
+    text-align: center;
+}
+#user .table i{
+    color:red;
+}
+#user .table input{
+    height:17px;
+}
