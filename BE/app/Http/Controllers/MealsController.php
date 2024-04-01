@@ -22,12 +22,12 @@ class MealsController extends Controller
     public function create()
     {
         $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
-            'carb' => 'required|numeric',
-            'fiber' => 'required|numeric',
-            'protein' => 'required|numeric',
-            'calo_kcal' => 'required|numeric',
-            'meals_type' => 'required|string|max:255',
+            'Name' => 'required|string|max:255',
+            'Carb' => 'required|numeric',
+            'Fiber' => 'required|numeric',
+            'Protein' => 'required|numeric',
+            'Calo_kcal' => 'required|numeric',
+            'Meals_type' => 'required|string|max:255',
         ]);
 
         $meal = Meals::create($validatedData);

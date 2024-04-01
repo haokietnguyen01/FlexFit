@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\MealsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,4 +34,13 @@ Route::group([
     Route::get('/user-profile', [AuthController::class, 'userProfile']);
     Route::post('/change-pass', [AuthController::class, 'changePassWord']); 
     Route::post('/update-profile', [AuthController::class, 'Update']);      
+});
+Route::group([
+    'middleware' => 'api',
+    'prefix' => 'auth'
+
+], function ($router) {
+    Route::post('/index', [MealsController::class, 'index']);
+    Route::post('/create', [MealsController::class, 'create']);
+        
 });
