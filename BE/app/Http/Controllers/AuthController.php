@@ -5,54 +5,81 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Models\Admin;
+use App\Models\Customer;
+use App\Models\Coach;
+use JWTAuth;
+use Tymon\JWTAuth\Exceptions\JWTException;
 use Validator;
-
+use Hash;
 
 class AuthController extends Controller
 {
-    public function __construct() {
-        $this->middleware('auth:api', ['except' => ['login', 'register']]);
-    }
+    
     public function login(Request $request){
-    	$validator = Validator::make($request->all(), [
-            'email' => 'required|email',
-            'password' => 'required|min:6',
-            
-        ]);
+    	
+         // Lấy thông tin đăng nhập từ yêu cầu
+         $credentials = $request->only('email', 'password');
 
-        if ($validator->fails()) {
-            return response()->json($validator->errors(), 422);
+        // Check email existence (assuming you have a User model)
+        if (!User::where('email', $request->email)->exists()) {
+            return response()->json(['error' => 'invalid_credentials'], 401);
         }
 
-        if (! $token = auth()->attempt($validator->validated())) {
-            return response()->json(['error' => 'Unauthorized'], 401);
-        }
-        $cookie = cookie('jwt', $token, config('jwt.ttl'));
-        return $this->createNewToken($token)->withCookie($cookie);
-    }
-    public function register(Request $request) {
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|string|between:2,100',
-            'email' => 'required|string|email|max:100|unique:users',
-            // 'password' => 'required|between:8,255|confirmed',
-            // 'password_confirmation' => 'required|same:password',
-            'password' => 'required|min:6',
-            // 'password_confirmation' => 'required|between:8,255|confirmed',
-        ]);
-
-        if($validator->fails()){
-            return response()->json($validator->errors()->toJson(), 400);
+        // Check password using Laravel's Hash facade
+        if (!Hash::check($request->password, User::where('email', $request->email)->first()->password)) {
+            return response()->json(['error' => 'invalid_credentials'], 401);
         }
 
-        $user = User::create(array_merge(
-                    $validator->validated(),
-                    ['password' => bcrypt($request->password)]
-                ));
+        // Attempt login using Laravel's Auth facade
+        if (!Auth::attempt($credentials)) {
+            return response()->json(['error' => 'invalid_credentials'], 401);
+        }
+
+        // Generate JWT token on successful login (assuming JWT middleware)
+        $token = JWTAuth::fromUser(Auth::user());
 
         return response()->json([
-            'message' => 'User successfully registered',
-            'user' => $user
-        ], 201);
+            'success' => true,
+            'token' => $token,
+            'user' => Auth::user() // Include user details if needed
+        ]);
+    }
+    public function register(Request $request) {
+        
+        $user = User::create([
+            'role_id' => $request->role_id,
+            'email' => $request->email,
+            'password' => bcrypt($request->password)
+            
+        ]);
+        // dd($user);
+        if ($user) {
+            switch ($user->role_id) {
+                case 1: // Customer
+                    Customer::create([
+                        'id_user'=>$user->id,
+                        // 'email' => $user->email,
+                        // 'password' => bcrypt($user->password)
+                        
+                    ]);
+                    break;
+                case 2: // Coach
+                    Coach::create([
+                        'id_user'=>$user->id,
+                        // 'email' => $user->email,
+                        // 'password' => bcrypt($user->password)
+                        
+                    ]);
+                    break;
+                default:
+                    
+                    break;
+            }
+            return response()->json(['message' => 'User registered successfully', 'user' => $user]);
+        }
+
+        return response()->json(['error' => 'Registration failed'], 500);
     }
     public function logout() {
         auth()->logout();
@@ -76,7 +103,7 @@ class AuthController extends Controller
     public function changePassWord(Request $request) {
         $validator = Validator::make($request->all(), [
             'old_password' => 'required|string|min:6',
-            'new_password' => 'required|string|confirmed|min:6',
+            'new_password' => 'required|string|min:6',
         ]);
 
         if($validator->fails()){

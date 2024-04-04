@@ -11,12 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('Admin', function (Blueprint $table) {
             $table->id();
-            $table->unsignedTinyInteger('role_id')->comment('0: Admin, 1: Customer, 2: Coach')->nullable();
-            $table->string('email')->nullable();
-            $table->string('password')->nullable();
-            // $table->timestamp('email_verified_at')->nullable();
+            $table->integer('user_id');
+            $table->unsignedTinyInteger('role_id')->default(0)->comment('0: Admin, 1: Customer, 2: Coach');
+            $table->integer('id_payment')->nullable();
+            $table->integer('id_meals')->nullable();
+            $table->integer('id_exercises')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
@@ -27,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('Admin');
     }
 };
