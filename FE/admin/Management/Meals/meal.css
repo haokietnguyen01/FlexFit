@@ -1,0 +1,109 @@
+#meal .logo img{
+    width:30px;
+    height:50px;
+}
+#meal .border-container{
+    padding-left:18%;
+    border: 1px solid #0000001A;
+    height:500px;
+}
+#meal .logo p{
+    margin-top:11px;
+    margin-left:20px;
+    font-weight:700;
+    font-size:18px;
+}
+#meal .menu_detail span{
+    margin-left:20px;
+}
+#meal .menu_detail i{
+    margin-right:10px;
+}
+#meal .menu_detail a{
+    margin-left:10px;
+    text-decoration: none;
+    color:#131313;
+    display:block;
+}
+#meal .menu_detail .w{
+    width:30px;
+}
+#meal .search-border{
+    border:1px solid #0000001A ;
+    padding: 10px;
+    width:450px;
+    margin-left:50px;
+}
+#meal .search-border i{
+    margin-left:10px;
+}
+#meal .search-border input{
+    border:none;
+    outline:0;
+    margin-left:20px;
+}
+#meal .img_personal img{
+    width:50px; 
+}
+#meal .table_user{
+    width:10000px
+}
+#meal .padding{
+    padding-left:20px;
+    padding-right:40px;
+}
+#meal .padding {
+    font-size:11px;
+}
+#meal .table_user {
+    font-size: 11px;
+}
+#meal .table{
+    text-align: center;
+}
+#meal .table i{
+    color:red;
+}
+#meal .table input{
+    height:17px;
+}
+#meal .table a{
+    margin-right:10px;
+}
+#meal .button-add button{
+    margin-right:30px; 
+    border:1px solid #000000;
+    color:red;
+}
+#meal .button-add i{
+    margin-right:20px;
+}
+#meal .button-add button:hover{
+    transform: translateY(-5px);
+}
+#meal .modal-body{
+    margin-left:10%;
+}
+#meal .modal-body input,
+#meal .modal-body select{
+    padding:5px;
+}
+#meal .btn-add{
+    background-color:#F53838 ;
+    color:white;
+    width:100px;
+    margin-right: 10px;
+}
+#meal .btn-cancel{
+    background-color: white;
+    color:#F53838;
+    width:100px;
+}
+#meal .btn-add:hover{
+    border: 1px solid #000;
+    background-color: transparent;
+    color:#F53838;
+}
+#meal .btn-cancel:hover{
+    border:1px solid #000;
+}
