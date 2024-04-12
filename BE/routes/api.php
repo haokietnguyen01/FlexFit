@@ -3,7 +3,10 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\MealsController;
+use App\Http\Controllers\Meals\MealsController;
+use App\Http\Controllers\Meals\TypeMealsController;
+use App\Http\Controllers\Exercises\TypeExercisesController;
+use App\Http\Controllers\Exercises\ExercisesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,7 +32,20 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/user/profile', [AuthController::class, 'userProfile']);
     Route::post('/change-pass', [AuthController::class, 'changePassWord']); 
     Route::post('/logout', [AuthController::class, 'logout']);
+    
 });
+//Meals
+Route::get('/meals/index', [MealsController::class, 'index']);
+Route::post('/meals/create', [MealsController::class, 'create']);
+//Type Meals
+Route::get('/type_meal/index', [TypeMealsController::class, 'index']);
+Route::post('/type_meal/create', [TypeMealsController::class, 'create']);
+//Type Exercises
+Route::get('/type_exercises/index', [TypeExercisesController::class, 'index']);
+Route::post('/type_exercises/create', [TypeExercisesController::class, 'create']);
+//Exercises
+Route::get('/exercises/index', [ExercisesController::class, 'index']);
+Route::post('/exercises/create', [ExercisesController::class, 'create']);
 // Route::group([
 //     'middleware' => 'api',
 //     'prefix' => 'auth'
