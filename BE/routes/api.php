@@ -1,5 +1,6 @@
 <?php
 
+// use App\Http\Controllers\Admin\AdminController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
@@ -32,7 +33,9 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/user/profile', [AuthController::class, 'userProfile']);
     Route::post('/change-pass', [AuthController::class, 'changePassWord']); 
     Route::post('/logout', [AuthController::class, 'logout']);
-    
+    Route::get('/getDataCustomer', [\App\Http\Controllers\Admin\AdminController::class, 'getDataCustomer']);
+    Route::get('/getDataCoach', [\App\Http\Controllers\Admin\AdminController::class, 'getDataCoach']);
+    Route::post('/destroy/{id}', [\App\Http\Controllers\Admin\AdminController::class, 'destroy']);
 });
 //Meals
 Route::get('/meals/index', [MealsController::class, 'index']);

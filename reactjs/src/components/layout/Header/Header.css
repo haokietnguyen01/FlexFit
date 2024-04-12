@@ -1,0 +1,50 @@
+#header{
+    margin-top:20px;
+    margin-bottom: 50px;
+}
+#header .header-content a,
+#header .header-logo a{
+    text-decoration: none;
+    color: black;
+    padding:10px;
+    margin-left:40px;
+}
+#header .btn-sign-up{
+    border: solid 1px #F53855;
+    color: #F53855;
+    margin-left:15px;
+}
+#header .btn-sign-up,
+#header .btn-sign-in{
+    border-radius:100px!important;
+    font-weight:600!important;
+}
+#header .btn-sign-up:hover{
+    background-color: #F53855;
+    color:white;
+}
+#header .btn-sign-in:hover{
+    border:1px solid #F53855;
+    color :#F53855;
+}
+#header .btn{
+    width:30%;
+}
+#header .header-content
+,#header .header-logo{
+    margin-top: 7px;
+}
+#header img{
+    width:30px;
+    margin-right:20px;
+}
+#header .header-content a{
+    padding-right:20px;
+}
+#header .header-content a:hover,
+#header .header-logo a:hover{
+    color:#F53855
+}
+#header span{
+    padding-top:15px;
+}

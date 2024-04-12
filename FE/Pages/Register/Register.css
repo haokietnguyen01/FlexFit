@@ -64,9 +64,18 @@
     border-radius: 8px;
     font-size:18px;
 }
+
 #register button:hover{
     border: solid 1px #F53855!important;
     color: #F53855 !important;
     background-color: white!important;
-    transform: translateY(-5px);
+    background-position: left;
+}
+#register button {
+    display: inline-block;
+    padding: 10px;
+    background-image: linear-gradient(to left, rgba(0, 0, 0, 0.5) 50%, transparent 50%); /*Tạo gradient từ giữa sang trái*/
+    background-size: 200% 100%; /* Kích thước background là gấp đôi kích thước thực */
+    background-position: right; /* Đặt vị trí background ở bên phải */
+    transition: background-position 0.3s ease; 
 }
