@@ -46,41 +46,65 @@ class AuthController extends Controller
         ]);
     }
     public function register(Request $request) {
-        
         $user = User::create([
-            'role_id' => $request->role_id,
+            'role_id' => 1,
             'email' => $request->email,
             'password' => bcrypt($request->password)
-            
         ]);
-        // dd($user);
+    
         if ($user) {
-            switch ($user->role_id) {
-                case 1: // Customer
-                    Customer::create([
-                        'id_user'=>$user->id,
-                        // 'email' => $user->email,
-                        // 'password' => bcrypt($user->password)
-                        
-                    ]);
-                    break;
-                case 2: // Coach
-                    Coach::create([
-                        'id_user'=>$user->id,
-                        // 'email' => $user->email,
-                        // 'password' => bcrypt($user->password)
-                        
-                    ]);
-                    break;
-                default:
-                    
-                    break;
-            }
+            // Tạo một bản ghi Customer nếu role_id là 1 (Customer)
+            // if ($user->role_id == 1) {
+                Customer::create([
+                    'id_user' => $user->id,
+                    // Bạn có thể thêm các trường dữ liệu khác ở đây nếu cần
+                ]);
+            // }
+    
+            // Tương tự, bạn có thể thêm các trường hợp khác cho các vai trò khác ở đây
+    
             return response()->json(['message' => 'User registered successfully', 'user' => $user]);
         }
-
+    
         return response()->json(['error' => 'Registration failed'], 500);
     }
+    
+    // public function register(Request $request) {
+        
+    //     $user = User::create([
+    //         'role_id' => $request->role_id,
+    //         'email' => $request->email,
+    //         'password' => bcrypt($request->password)
+            
+    //     ]);
+    //     // dd($user);
+    //     if ($user) {
+    //         switch ($user->role_id) {
+    //             case 1: // Customer
+    //                 Customer::create([
+    //                     'id_user'=>$user->id,
+    //                     // 'email' => $user->email,
+    //                     // 'password' => bcrypt($user->password)
+                        
+    //                 ]);
+    //                 break;
+    //             case 2: // Coach
+    //                 Coach::create([
+    //                     'id_user'=>$user->id,
+    //                     // 'email' => $user->email,
+    //                     // 'password' => bcrypt($user->password)
+                        
+    //                 ]);
+    //                 break;
+    //             default:
+                    
+    //                 break;
+    //         }
+    //         return response()->json(['message' => 'User registered successfully', 'user' => $user]);
+    //     }
+
+    //     return response()->json(['error' => 'Registration failed'], 500);
+    // }
     public function logout() {
         auth()->logout();
 

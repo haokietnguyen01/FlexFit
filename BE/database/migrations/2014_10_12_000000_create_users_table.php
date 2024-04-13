@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->unsignedTinyInteger('role_id')->comment('0: Admin, 1: Customer, 2: Coach')->nullable();
+            $table->unsignedTinyInteger('role_id')->comment('0: Admin, 1: Customer, 2: Coach');
             $table->string('email')->nullable();
             $table->string('password')->nullable();
             // $table->timestamp('email_verified_at')->nullable();
