@@ -8,6 +8,7 @@ use App\Http\Controllers\Meals\MealsController;
 use App\Http\Controllers\Meals\TypeMealsController;
 use App\Http\Controllers\Exercises\TypeExercisesController;
 use App\Http\Controllers\Exercises\ExercisesController;
+use App\Http\Controllers\Degree\DegreeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,6 +50,9 @@ Route::post('/type_exercises/create', [TypeExercisesController::class, 'create']
 //Exercises
 Route::get('/exercises/index', [ExercisesController::class, 'index']);
 Route::post('/exercises/create', [ExercisesController::class, 'create']);
+Route::get('/exercises/index', [ExercisesController::class, 'index']);
+Route::post('/degree/create', [DegreeController::class, 'storeTemporaryDegree']);
+Route::post('/changeStatus',[DegreeController::class, 'changeStatus']);
 // Route::group([
 //     'middleware' => 'api',
 //     'prefix' => 'auth'
