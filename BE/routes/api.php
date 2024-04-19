@@ -31,8 +31,9 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [AuthController::class, 'register']);
 Route::middleware('auth:api')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
-    Route::get('/user/profile', [AuthController::class, 'userProfile']);
+    Route::get('/user-profile', [AuthController::class, 'userProfile']);
     Route::post('/change-pass', [AuthController::class, 'changePassWord']); 
+    Route::post('/update-profile', [AuthController::class, 'Update']); 
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/getDataCustomer', [\App\Http\Controllers\Admin\AdminController::class, 'getDataCustomer']);
     Route::get('/getDataCoach', [\App\Http\Controllers\Admin\AdminController::class, 'getDataCoach']);
@@ -52,7 +53,8 @@ Route::get('/exercises/index', [ExercisesController::class, 'index']);
 Route::post('/exercises/create', [ExercisesController::class, 'create']);
 Route::get('/exercises/index', [ExercisesController::class, 'index']);
 Route::post('/degree/create', [DegreeController::class, 'storeTemporaryDegree']);
-Route::post('/changeStatus',[DegreeController::class, 'changeStatus']);
+Route::post('/acceptDegree',[DegreeController::class, 'acceptDegree']);
+Route::post('/cancelDegree',[DegreeController::class, 'cancelDegree']);
 // Route::group([
 //     'middleware' => 'api',
 //     'prefix' => 'auth'
@@ -63,7 +65,7 @@ Route::post('/changeStatus',[DegreeController::class, 'changeStatus']);
 //     Route::post('/refresh', [AuthController::class, 'refresh']);
 //     Route::get('/user-profile', [AuthController::class, 'userProfile']);
 //     Route::post('/change-pass', [AuthController::class, 'changePassWord']); 
-//     Route::post('/update-profile', [AuthController::class, 'Update']);      
+//          
 // });
 // Route::group([
 //     'middleware' => 'api',

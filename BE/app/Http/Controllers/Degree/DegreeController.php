@@ -13,53 +13,6 @@ use App\Models\Customer;
 
 class DegreeController extends Controller
 {
-    // public function storeTemporaryDegree(Request $request)
-    // {
-    //     $validator = Validator::make($request->all(), [
-    //         'degree_image' => 'required|file|mimes:jpeg,png,jpg|max:2048',
-    //     ]);
-
-    //     if ($validator->fails()) {
-    //         return response()->json([
-    //             'message' => 'Invalid input.',
-    //             'errors' => $validator->errors()->toArray(),
-    //         ], 400);
-    //     }
-    //     if (!Auth::check()) {
-    //         return response()->json([
-    //             'message' => 'Unauthorized',
-    //         ], 401);
-    //     }
-
-    //     $user = Auth::user();
-    //     $customerId = $user->id; // Assuming user is linked to customer
-
-    //     // Update degree information
-    //     $degree = Degree::where('customer_id', $customerId)->first();
-    //     if (!$degree) {
-    //         $degree = new Degree();
-    //         $degree->customer_id = $customerId;
-    //     }
-    //     $degree->update($request->except( 'degree_image'));
-    //     if ($request->hasFile('degree')) {
-    //         $degreeImage = $request->file('degree');
-            
-    //             $imageName = $degreeImage->getClientOriginalName(); // Tên gốc của hình ảnh
-    //             $image->move(public_path('degreeImage'), $imageName); // Di chuyển hình ảnh vào thư mục public/images
-    
-    //             // Cập nhật đường dẫn hình ảnh trong cơ sở dữ liệu
-    //             $degree->degree = '/degreeImage/' . $imageName;
-    //             $degree->save();
-
-            
-    //     }
-        
-    //     return response()->json([
-    //         'message' => 'Degree and profile updated successfully.',
-    //         'user' => $user,
-    //         'degree' => $degree,
-    //     ]);
-    // }
     public function storeTemporaryDegree(Request $request)
     {
     $validator = Validator::make($request->all(), [
@@ -106,7 +59,7 @@ class DegreeController extends Controller
     ]);
     // sau khi thực hiện xong thì id_user có đổi không
     }
-    public function changeStatus(Request $request)
+    public function acceptDegree(Request $request)
     {
         // Đổi status của Degree thành 'active'
         $degree = Degree::find($request->id_degree);
@@ -155,6 +108,14 @@ class DegreeController extends Controller
         // Xóa dữ liệu từ bảng Customer tương ứng với id_user
         Customer::where('id_user', $request->id_user)->delete();
 
+        return response()->json(['message' => 'Thành công'], 200);
+    }
+    public function cancelDegree(Request $request)
+    {
+        $degree = Degree::find($request->id_degree);
+        //  dd($degree);
+        $degree->status = 'Cancel';
+        $degree->save();
         return response()->json(['message' => 'Thành công'], 200);
     }
     //từ chối sẽ không thay đổi role_id và vẫn giữ nguyên giữ liệu

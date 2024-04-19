@@ -11,7 +11,6 @@ class Coach extends Model
     protected $table='coach';
     public $timestamps = true;
     protected $fillable = [
-        
         'id_user',
         'name',
         'DOB',
