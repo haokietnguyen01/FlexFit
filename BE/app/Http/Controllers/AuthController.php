@@ -145,29 +145,9 @@ class AuthController extends Controller
         ], 201);
     }
     
-    // public function Update(Request $request){
-    //     $user = Auth::user();
-         
-    //     if ($user) {
-    //         $user->update($request->all());
-    //         return response()->json([
-    //             'status'    => 1,
-    //             'message'   => 'User profile changed successfully ',
-    //         ]);
-    //     } else {
-            
-    //         return response()->json([
-    //             'status'    => 0,
-    //             'message'   => 'User profile change Error',
-    //         ]);
-    //     }
-    // }
+    
     public function Update(Request $request){
-        // $validator = Validator::make($request->all(), [
-        //     'name' => 'required|string|max:255',
-        //     'email' => 'required|string|email|max:255|unique:users,email',
-        //     'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048', 
-        // ]);
+       
         if (!Auth::check()) {
             return response()->json([
                 'message' => 'Unauthorized',
@@ -177,9 +157,7 @@ class AuthController extends Controller
         $user = Auth::user();
         // dd($user->id);
         if ($user->role_id == 1) {
-            // Cập nhật hồ sơ cho người dùng có vai trò là Admin
-            // $user->update($request->all());
-        
+            
             // Kiểm tra và cập nhật thông tin cho model Customer
             $customer = Customer::where('id_user', $user->id)->first();
             // dd($customer);
@@ -201,8 +179,6 @@ class AuthController extends Controller
                 'customer'  => $customer
             ]);
         } elseif ($user->role_id == 2) {
-            // Cập nhật hồ sơ cho người dùng có vai trò là HLV
-            // $user->update($request->all());
         
             // Kiểm tra và cập nhật thông tin cho model Coach
             $coach = Coach::where('id_user', $user->id)->first();
@@ -230,36 +206,6 @@ class AuthController extends Controller
                 'message'   => 'User profile change Error',
             ]);
         }
-        
-        
-
-        // if ($user) {
-        //     // Cập nhật thông tin user từ request
-        //     $user->update($request->except('image'));
-    
-        //     // Xử lý và lưu hình ảnh nếu có
-        //     if ($request->hasFile('image')) {
-        //         // Lưu hình ảnh vào thư mục
-        //         $image = $request->file('image');
-        //         $imageName = $image->getClientOriginalName(); // Tên gốc của hình ảnh
-        //         $image->move(public_path('images'), $imageName); // Di chuyển hình ảnh vào thư mục public/images
-    
-        //         // Cập nhật đường dẫn hình ảnh trong cơ sở dữ liệu
-        //         $user->image = '/images/' . $imageName;
-        //         $user->save();
-        //     }
-    
-        //     return response()->json([
-        //         'status'    => 1,
-        //         'message'   => 'User profile changed successfully ',
-        //         'user'      => $user
-        //     ]);
-        // } else {
-        //     return response()->json([
-        //         'status'    => 0,
-        //         'message'   => 'User profile change Error',
-        //     ]);
-        // }
     }
     
     
