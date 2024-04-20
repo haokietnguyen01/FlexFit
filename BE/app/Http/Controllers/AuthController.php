@@ -108,7 +108,7 @@ class AuthController extends Controller
     public function logout() {
         auth()->logout();
 
-        return response()->json(['message' => 'User successfully signed out']);
+        return response()->json(['message' => 'User successfully logout']);
     }
     public function refresh() {
         return $this->createNewToken(auth()->refresh());
@@ -162,6 +162,7 @@ class AuthController extends Controller
             $customer = Customer::where('id_user', $user->id)->first();
             // dd($customer);
             if ($customer) {
+                // $customer =update($request->all());
                 $customer->update($request->except('image'));
                 if ($request->hasFile('image')) {
                     $image = $request->file('image');
@@ -184,7 +185,8 @@ class AuthController extends Controller
             $coach = Coach::where('id_user', $user->id)->first();
             // dd($coach);
             if ($coach) {
-                $coach->update($request->all());
+                // $coach->update($request->all());
+                $coach->update($request->except('image'));
                 if ($request->hasFile('image')) {
                     $image = $request->file('image');
                     $imageName = $image->getClientOriginalName();
