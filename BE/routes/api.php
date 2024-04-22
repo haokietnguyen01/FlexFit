@@ -42,6 +42,7 @@ Route::middleware('auth:api')->group(function () {
 //Meals
 Route::get('/meals/index', [MealsController::class, 'index']);
 Route::post('/meals/create', [MealsController::class, 'create']);
+Route::get('/meals/search' , [MealsController::class, 'searchByName']);
 //Type Meals
 Route::get('/type_meal/index', [TypeMealsController::class, 'index']);
 Route::post('/type_meal/create', [TypeMealsController::class, 'create']);
@@ -51,7 +52,8 @@ Route::post('/type_exercises/create', [TypeExercisesController::class, 'create']
 //Exercises
 Route::get('/exercises/index', [ExercisesController::class, 'index']);
 Route::post('/exercises/create', [ExercisesController::class, 'create']);
-Route::get('/exercises/index', [ExercisesController::class, 'index']);
+Route::get('/exercises/search' , [ExercisesController::class, 'searchByName']);
+//Degree
 Route::post('/degree/create', [DegreeController::class, 'storeTemporaryDegree']);
 Route::post('/acceptDegree',[DegreeController::class, 'acceptDegree']);
 Route::post('/cancelDegree',[DegreeController::class, 'cancelDegree']);

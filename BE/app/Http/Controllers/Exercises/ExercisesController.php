@@ -30,4 +30,18 @@ class ExercisesController extends Controller
         }
         return response()->json(['error' => 'create failed'], 400);
     }
+    public function searchByName(Request $request)
+    {
+        $name = $request->input('name');
+        
+        // Kiểm tra nếu không có tên được cung cấp
+        if (!$name) {
+            return response()->json(['error' => 'Name not provided'], 400);
+        }
+
+        // Tìm kiếm các bài tập với tên chứa $name
+        $exercises = Exercises::where('name', 'like', "%$name%")->get();
+
+        return response()->json($exercises);
+    }
 }

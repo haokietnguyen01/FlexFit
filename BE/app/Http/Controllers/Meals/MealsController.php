@@ -75,7 +75,20 @@ class MealsController extends Controller
         }
         return response()->json(['error' => 'create failed'], 400);
     }
+    public function searchByName(Request $request)
+    {
+        $name = $request->input('name');
+        
+        // Kiểm tra nếu không có tên được cung cấp
+        if (!$name) {
+            return response()->json(['error' => 'Name not provided'], 400);
+        }
 
+        // Tìm kiếm các bài tập với tên chứa $name
+        $meals = Meals::where('name', 'like', "%$name%")->get();
+
+        return response()->json($meals);
+    }
     /**
      * Store a newly created resource in storage.
      */
