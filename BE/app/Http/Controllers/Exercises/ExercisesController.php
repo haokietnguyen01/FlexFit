@@ -44,4 +44,5 @@ class ExercisesController extends Controller
 
         return response()->json($exercises);
     }
+    
 }
