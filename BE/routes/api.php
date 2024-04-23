@@ -35,10 +35,7 @@ Route::middleware('auth:api')->group(function () {
     Route::post('/change-pass', [AuthController::class, 'changePassWord']); 
     Route::post('/update-profile', [AuthController::class, 'Update']); 
     Route::post('/logout', [AuthController::class, 'logout']);
-    Route::get('/getDataCustomer', [\App\Http\Controllers\Admin\AdminController::class, 'getDataCustomer']);
-    Route::get('/getDataCoach', [\App\Http\Controllers\Admin\AdminController::class, 'getDataCoach']);
-    Route::post('/destroy/{id}', [\App\Http\Controllers\Admin\AdminController::class, 'destroy']);
-
+    
     // Get list Coach for User
     Route::get('/getCoach', [\App\Http\Controllers\User\UserController::class, 'getCoach']); 
 
@@ -49,6 +46,11 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/getCoachById/{id}/sendRequest', [\App\Http\Controllers\User\UserController::class, 'sendRequest']); 
     
 });
+Route::get('/getDataCustomer', [\App\Http\Controllers\Admin\AdminController::class, 'getDataCustomer']);
+Route::get('/getDataCoach', [\App\Http\Controllers\Admin\AdminController::class, 'getDataCoach']);
+Route::post('/destroy/{id}', [\App\Http\Controllers\Admin\AdminController::class, 'destroy']);
+Route::get('/coach/search' , [\App\Http\Controllers\Admin\AdminController::class, 'searchCoachByName']);
+Route::get('/customer/search' , [\App\Http\Controllers\Admin\AdminController::class, 'searchCustomerByName']);
 //Meals
 Route::get('/meals/index', [MealsController::class, 'index']);
 Route::post('/meals/create', [MealsController::class, 'create']);
