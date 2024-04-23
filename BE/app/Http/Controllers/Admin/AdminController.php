@@ -79,32 +79,4 @@ class AdminController extends Controller
             'error'  => 'An error has occurred',
         ], 400);
     }
-    public function searchCoachByName(Request $request)
-    {
-        $name = $request->input('name');
-        
-        // Kiểm tra nếu không có tên được cung cấp
-        if (!$name) {
-            return response()->json(['error' => 'Name not provided'], 400);
-        }
-
-        // Tìm kiếm các bài tập với tên chứa $name
-        $coachs = Coach::where('name', 'like', "%$name%")->get();
-
-        return response()->json($coachs);
-    }
-    public function searchCustomerByName(Request $request)
-    {
-        $name = $request->input('name');
-        
-        // Kiểm tra nếu không có tên được cung cấp
-        if (!$name) {
-            return response()->json(['error' => 'Name not provided'], 400);
-        }
-
-        // Tìm kiếm các bài tập với tên chứa $name
-        $customers = Customer::where('name', 'like', "%$name%")->get();
-
-        return response()->json($customers);
-    }
 }

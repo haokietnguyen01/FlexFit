@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('Exercises', function (Blueprint $table) {
             $table->id();
             $table->String('name');
-            $table->Integer('set');
-            $table->Integer('rep');
-            $table->Integer('time_minutes');
-            $table->Integer('calo_kcal');
+            $table->String('set');
+            $table->String('rep');
+            $table->String('time_minutes');
+            $table->String('calo_kcal');
             $table->Integer('id_type_ex');
             $table->timestamps();
         });

@@ -11,14 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('meals', function (Blueprint $table) {
+        Schema::create('intermediate', function (Blueprint $table) {
             $table->id();
-            $table->string('Name');
-            $table->float('Carb');
-            $table->float('Fiber');
-            $table->float('Protein');
-            $table->float('Calo_kcal');
-            $table->string('id_type_meal');
+            $table->integer('id_coach');
+            $table->integer('id_user');
+            $table->unsignedTinyInteger('Accept')->default(0)->comment('0: False, 1: True');
             $table->timestamps();
         });
     }
@@ -28,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('meals');
+        Schema::dropIfExists('_intermediate');
     }
 };
