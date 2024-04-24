@@ -48,6 +48,9 @@ Route::middleware('auth:api')->group(function () {
     // Send Request to Coach
     Route::get('/getCoachById/{id}/sendRequest', [\App\Http\Controllers\User\UserController::class, 'sendRequest']); 
     
+    Route::get('/getListMeal', [\App\Http\Controllers\Coach\CoachController::class, 'getListMeal']); 
+
+    
 });
 //Meals
 Route::get('/meals/index', [MealsController::class, 'index']);
