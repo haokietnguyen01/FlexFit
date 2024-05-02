@@ -1,0 +1,83 @@
+#coach .logo img{
+    width:45px;
+    height:45px;
+}
+#coach .border-container{
+    border: 1px solid #0000001A;
+    height:558px;
+}
+#coach .logo p{
+    margin-top:16px;
+    margin-left:10px;
+    font-weight:700;
+    font-size:23px;
+}
+#coach .search-border{
+    border:1px solid #0000001A ;
+    padding: 10px;
+    width:400px;
+    margin-left:50px;
+    height: 40px;
+}
+#coach .search-border i{
+    margin-left:10px;
+}
+#coach .search-border input{
+    border:none;
+    outline:0;
+    margin-left:20px;
+}
+#coach .img_personal img{
+    width:50px; 
+}
+#coach .padding{
+    padding-left:20px;
+    padding-right:40px;
+}
+#coach .padding {
+    font-size:11px;
+}
+#coach .table_user {
+    font-size: 14px;
+}
+#coach .table{
+    text-align: center;
+}
+#coach .table i{
+    color:red;
+}
+#coach .table input{
+    height:18px;
+    width:18px;
+    border-radius: 10%;
+}
+#coach .avatar img,
+#coach .degree img{
+    width:50px;
+    height:50px;
+}
+#coach td{
+    line-height: 5;
+}
+#coach th{
+    line-height: 6;
+}
+#coach .btn-search{
+    font-size:10px;
+    margin-left:10px;
+    height:40px;
+    width:70px;
+    color:white;
+    background-color:#F53838
+}
+#coach button:hover{
+    background-color: transparent;
+    color:#F53838;
+    border:1px solid #F53838;
+}
+#coach .search{
+    margin-top:37px;
+}
+#coach .table_user i:hover{
+    cursor: pointer;
+}
