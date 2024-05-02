@@ -5,12 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Type_Meal extends Model
+class intermediate extends Model
 {
     use HasFactory;
-    protected $table='type_meal';
-    public $timestamps = true;
+    protected $table= 'intermediate';
     protected $fillable = [
-        'nameType'
+        'id',
+        'id_coach',
+        'id_user',
+        'accept',
+        'id_payment',
     ];
 }

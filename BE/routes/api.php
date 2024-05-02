@@ -45,6 +45,9 @@ Route::middleware('auth:api')->group(function () {
     // Send Request to Coach
     Route::get('/getCoachById/{id}/sendRequest', [\App\Http\Controllers\User\UserController::class, 'sendRequest']); 
     
+    Route::get('/getListMeal', [\App\Http\Controllers\Coach\CoachController::class, 'getListMeal']); 
+
+    
 });
 Route::get('/getDataCustomer', [\App\Http\Controllers\Admin\AdminController::class, 'getDataCustomer']);
 Route::get('/getDataCoach', [\App\Http\Controllers\Admin\AdminController::class, 'getDataCoach']);
@@ -69,6 +72,11 @@ Route::get('/exercises/search' , [ExercisesController::class, 'searchByName']);
 Route::post('/degree/create', [DegreeController::class, 'storeTemporaryDegree']);
 Route::post('/acceptDegree',[DegreeController::class, 'acceptDegree']);
 Route::post('/cancelDegree',[DegreeController::class, 'cancelDegree']);
+
+Route::post('/process-paypal', [\App\Http\Controllers\User\PayPalController::class, 'processPaypal'])->name('processPaypal');
+Route::get('/process-success', [\App\Http\Controllers\User\PayPalController::class, 'success'])->name('success');
+Route::get('/process-cancel', [\App\Http\Controllers\User\PayPalController::class, 'cancel'])->name('cancel');
+
 // Route::group([
 //     'middleware' => 'api',
 //     'prefix' => 'auth'

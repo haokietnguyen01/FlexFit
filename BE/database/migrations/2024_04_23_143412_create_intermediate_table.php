@@ -16,6 +16,7 @@ return new class extends Migration
             $table->integer('id_coach');
             $table->integer('id_user');
             $table->unsignedTinyInteger('Accept')->default(0)->comment('0: False, 1: True');
+            $table->unsignedTinyInteger('id_payment')->default(0);
             $table->timestamps();
         });
     }
