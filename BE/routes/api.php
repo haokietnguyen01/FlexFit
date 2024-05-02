@@ -70,6 +70,11 @@ Route::get('/exercises/search' , [ExercisesController::class, 'searchByName']);
 Route::post('/degree/create', [DegreeController::class, 'storeTemporaryDegree']);
 Route::post('/acceptDegree',[DegreeController::class, 'acceptDegree']);
 Route::post('/cancelDegree',[DegreeController::class, 'cancelDegree']);
+
+Route::post('/process-paypal', [\App\Http\Controllers\User\PayPalController::class, 'processPaypal'])->name('processPaypal');
+Route::get('/process-success', [\App\Http\Controllers\User\PayPalController::class, 'success'])->name('success');
+Route::get('/process-cancel', [\App\Http\Controllers\User\PayPalController::class, 'cancel'])->name('cancel');
+
 // Route::group([
 //     'middleware' => 'api',
 //     'prefix' => 'auth'

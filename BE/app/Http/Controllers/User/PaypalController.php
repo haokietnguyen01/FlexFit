@@ -4,6 +4,9 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\User;
+use App\Models\intermediate;
+use App\Models\Invoice;
 use Srmklive\PayPal\Services\PayPal as PayPalClient;
 
 class PaypalController extends Controller
@@ -54,9 +57,9 @@ class PaypalController extends Controller
 
         if (isset($response['status']) && $response['status'] == 'COMPLETED') {
             $user = User::where("id", $request->user_id)->first();
-            $schedule = Schedule::where("user_id", $user->id)->where("payment_id", 0)->first();
+            $intermediate = intermediate::where("id_user", $user->id)->where("id_payment", 0)->first();
 
-            if ($schedule && $user) {
+            if ($intermediate && $user) {
                 $invoice = Invoice::create([
                     'id_invoice'       => "INV" . mt_rand(1000000000, 9999999999),
                     'total_money'      => $request->price,
@@ -64,8 +67,8 @@ class PaypalController extends Controller
                     'full_name'        => $user->full_name,
                     'phone'            => $user->phone,
                 ]);
-                $schedule->payment_id = $invoice->id;
-                $schedule->save();
+                $intermediate->id_payment = $invoice->id;
+                $intermediate->save();
                 $data["link"] =  env('APP_URL') . "/history";
                 // SendMailJob::dispatch($user->email, 'Thank you for booking our soccer field. This is your order confirmation message.', $data, 'mail.mail_payment');
                 $redirect = env('APP_CLIENT_URL') . "/payment-success";
