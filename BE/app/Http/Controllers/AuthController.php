@@ -145,7 +145,28 @@ class AuthController extends Controller
         ], 201);
     }
     
-    
+    public function getDataUser() {
+        $user = Auth::user();
+        if ($user->role_id == 1) {
+            // Lấy thông tin của coach nếu role_id là 1 
+            $user = User::join('customer', 'users.id', '=', 'customer.id_user')
+                        ->select('customer.*', 'users.email')
+                        ->where('users.id', $user->id) // Lọc theo ID người dùng đã đăng nhập
+                        ->first();
+        } else if($user->role_id==2) {
+            // Lấy thông tin của customer nếu role_id không phải là 1
+            $coach = User::join('coach', 'users.id', 'coach.id_user')
+                ->select('coach.*', 'users.email')
+                ->where('users.id', $user->id)
+                ->get();
+        }
+
+        return response()->json([
+            'user' => $user,
+            'coach' => $coach,
+        ], 200);
+    }
+
     public function Update(Request $request){
        
         if (!Auth::check()) {
