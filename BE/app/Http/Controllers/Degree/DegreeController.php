@@ -13,6 +13,12 @@ use App\Models\Customer;
 
 class DegreeController extends Controller
 {
+    public function index()
+    {
+        $degree = Degree::all();
+
+        return response()->json($degree);
+    }
     public function storeTemporaryDegree(Request $request)
     {
     $validator = Validator::make($request->all(), [

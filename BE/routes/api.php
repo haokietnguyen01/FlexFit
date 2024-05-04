@@ -71,6 +71,7 @@ Route::get('/exercises/index', [ExercisesController::class, 'index']);
 Route::post('/exercises/create', [ExercisesController::class, 'create']);
 Route::get('/exercises/search' , [ExercisesController::class, 'searchByName']);
 //Degree
+Route::get('/degree/index', [DegreeController::class, 'index']);
 Route::post('/degree/create', [DegreeController::class, 'storeTemporaryDegree']);
 Route::post('/acceptDegree',[DegreeController::class, 'acceptDegree']);
 Route::post('/cancelDegree',[DegreeController::class, 'cancelDegree']);
