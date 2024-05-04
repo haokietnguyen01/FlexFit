@@ -68,43 +68,6 @@ class AuthController extends Controller
     
         return response()->json(['error' => 'Registration failed'], 500);
     }
-    
-    // public function register(Request $request) {
-        
-    //     $user = User::create([
-    //         'role_id' => $request->role_id,
-    //         'email' => $request->email,
-    //         'password' => bcrypt($request->password)
-            
-    //     ]);
-    //     // dd($user);
-    //     if ($user) {
-    //         switch ($user->role_id) {
-    //             case 1: // Customer
-    //                 Customer::create([
-    //                     'id_user'=>$user->id,
-    //                     // 'email' => $user->email,
-    //                     // 'password' => bcrypt($user->password)
-                        
-    //                 ]);
-    //                 break;
-    //             case 2: // Coach
-    //                 Coach::create([
-    //                     'id_user'=>$user->id,
-    //                     // 'email' => $user->email,
-    //                     // 'password' => bcrypt($user->password)
-                        
-    //                 ]);
-    //                 break;
-    //             default:
-                    
-    //                 break;
-    //         }
-    //         return response()->json(['message' => 'User registered successfully', 'user' => $user]);
-    //     }
-
-    //     return response()->json(['error' => 'Registration failed'], 500);
-    // }
     public function logout() {
         auth()->logout();
 

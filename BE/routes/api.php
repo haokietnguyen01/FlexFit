@@ -9,6 +9,7 @@ use App\Http\Controllers\Meals\TypeMealsController;
 use App\Http\Controllers\Exercises\TypeExercisesController;
 use App\Http\Controllers\Exercises\ExercisesController;
 use App\Http\Controllers\Degree\DegreeController;
+use App\Http\Controllers\Schedule\ScheduleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -74,10 +75,18 @@ Route::post('/degree/create', [DegreeController::class, 'storeTemporaryDegree'])
 Route::post('/acceptDegree',[DegreeController::class, 'acceptDegree']);
 Route::post('/cancelDegree',[DegreeController::class, 'cancelDegree']);
 
+//Payment
 Route::post('/process-paypal', [\App\Http\Controllers\User\PayPalController::class, 'processPaypal'])->name('processPaypal');
 Route::get('/process-success', [\App\Http\Controllers\User\PayPalController::class, 'success'])->name('success');
 Route::get('/process-cancel', [\App\Http\Controllers\User\PayPalController::class, 'cancel'])->name('cancel');
 
+//Schedule
+Route::post('/schedule/create',[ScheduleController::class, 'create']);
+Route::get('/schedule/delete/{id}',[ScheduleController::class, 'delete']);
+Route::get('/schedule/get-data/{id}',[ScheduleController::class, 'getDataById']);
+Route::post('/schedule/{id}', [ScheduleController::class, 'update']);
+Route::get('/schedules/date', [ScheduleController::class, 'getScheduleInDate']);
+Route::get('/schedules/month', [ScheduleController::class, 'getScheduleInMonth']);
 // Route::group([
 //     'middleware' => 'api',
 //     'prefix' => 'auth'

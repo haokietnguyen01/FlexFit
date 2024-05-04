@@ -89,21 +89,26 @@ class AdminController extends Controller
         }
 
         // Tìm kiếm các bài tập với tên chứa $name
-        $coachs = Coach::where('name', 'like', "%$name%")->get();
+        $coachs = User::join('coach', 'users.id', 'coach.id_user')
+                ->where('coach.name', 'like', "%$name%")
+                ->select('coach.*', 'users.email')
+                ->get();
 
         return response()->json($coachs);
     }
     public function searchCustomerByName(Request $request)
     {
         $name = $request->input('name');
-
-        // Kiểm tra nếu không có tên được cung cấp
+        //Kiểm tra nếu không có tên được cung cấp
         if (!$name) {
             return response()->json(['error' => 'Name not provided'], 400);
         }
 
-        // Tìm kiếm các bài tập với tên chứa $name
-        $customers = Customer::where('name', 'like', "%$name%")->get();
+        //Tìm kiếm các bài tập với tên chứa $name
+        $customers = User::join('customer', 'users.id', 'customer.id_user')
+                ->where('customer.name', 'like', "%$name%")
+                ->select('customer.*', 'users.email')
+                ->get();
 
         return response()->json($customers);
     }
