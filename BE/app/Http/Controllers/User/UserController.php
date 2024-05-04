@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Coach;
+use App\Models\evaluate;
+use App\Models\Customer;
 use App\Models\intermediate;
 use Illuminate\Support\Facades\Auth;
 
@@ -41,6 +43,20 @@ class UserController extends Controller
                 'Message' => "Send request fail",
             ], 400); 
         }
-        
+    }
+
+    public function evaluate(Request $request, $id) {
+        $user = auth()->user();
+        $idCustomer = Customer::select('id')->where('id_user', $user->id)->first();
+        evaluate::create([
+            'id_customer' => $idCustomer->id,
+            'id_coach' => $id,
+            'rating' => $request->rating,
+            'comment' => $request->comment,
+        ]);
+        return response()->json([
+            'Message' => "Evaluated successfully",
+            // 'data' => $idCustomer
+        ], 200);
     }
 }
