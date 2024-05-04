@@ -47,6 +47,15 @@ Route::middleware('auth:api')->group(function () {
     // Send Request to Coach
     Route::get('/getCoachById/{id}/sendRequest', [\App\Http\Controllers\User\UserController::class, 'sendRequest']); 
     
+    // Receive Request to User
+    Route::get('/getRequest', [\App\Http\Controllers\Coach\CoachController::class, 'getRequest']); 
+    // Choose option request to User
+    Route::post('/receiveRequest/{id}', [\App\Http\Controllers\Coach\CoachController::class, 'receiveRequest']); 
+
+    // Rate and Comment with id_coach
+    Route::post('/evaluate/{id}', [\App\Http\Controllers\User\UserController::class, 'evaluate']); 
+
+
     Route::get('/getListMeal', [\App\Http\Controllers\Coach\CoachController::class, 'getListMeal']); 
 
     
