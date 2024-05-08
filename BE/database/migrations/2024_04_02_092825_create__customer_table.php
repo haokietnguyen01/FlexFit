@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('name')->nullable();
             $table->date('DOB')->nullable();
             $table->string('phone')->nullable();
+            $table->string('address')->nullable();
             $table->enum('sex', ['Male', 'Female', 'Pending'])->nullable();
             $table->string('image')->nullable();
             $table->rememberToken();

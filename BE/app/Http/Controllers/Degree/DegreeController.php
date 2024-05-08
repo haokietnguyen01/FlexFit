@@ -87,6 +87,7 @@ class DegreeController extends Controller
         $coach->DOB = $customer->DOB;
         $coach->phone = $customer->phone;
         $coach->sex = $customer->sex;
+        $coach->address = $customer->address;
         $coach->id_payment = null;
         $coach->id_schedule = null;
         $coach->degree = $degree->degree_image;

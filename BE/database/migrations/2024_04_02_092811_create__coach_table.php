@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('image')->nullable();
             $table->integer('id_payment')->nullable();
             $table->string('degree')->nullable();
+            $table->string('address')->nullable();
             $table->integer('id_schedule')->nullable();
             $table->integer('id_course')->nullable();
             $table->integer('id_history')->nullable();
