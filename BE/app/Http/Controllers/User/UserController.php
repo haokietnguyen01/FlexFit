@@ -9,6 +9,7 @@ use App\Models\Coach;
 use App\Models\evaluate;
 use App\Models\Customer;
 use App\Models\intermediate;
+use App\Models\history;
 use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
@@ -59,4 +60,59 @@ class UserController extends Controller
             // 'data' => $idCustomer
         ], 200);
     }
+
+    public function saveBody(Request $request) {
+        $user = auth()->user();
+        
+        $data = [
+            "id_user" => $user->id,
+            'sex' => $request->sex,
+            'age' => $request->age,
+            'weight' => $request->weight,
+            'height' => $request->height,
+            'neck' => $request->neck,
+            'chest' => $request->chest,
+            'abdomen' => $request->abdomen,
+            'hip' => $request->hip,
+            'thigh' => $request->thigh,
+            'knee' => $request->knee,
+            'ankle' => $request->ankle,
+            'biceps' => $request->biceps,
+            'forearm' => $request->forearm,
+            'wrist' => $request->wrist,
+            'bodyfat' => $request->bodyfat,
+        ];
+        if(history::create($data)) {
+            return response()->json([
+                'Message' => "Saved your body",
+            ], 200);
+        }
+        return response()->json([
+            'Message' => "Fail to save body",
+        ], 400);
+    }
+    public function getBodyCustomer(){
+        $user = auth()->user();
+        $customer = Customer::join('history', "history.id_user", "=", "customer.id_user")
+        ->select("customer.name", "customer.DOB", "customer.phone", "customer.sex", "customer.image",
+                "history.age", "history.weight", "history.height", "history.neck", "history.chest",
+                "history.abdomen", "history.hip", "history.thigh", "history.knee", "history.ankle",
+                "history.biceps", "history.forearm", "history.wrist", "history.bodyfat")
+        ->where("history.id_user", $user->id)
+        ->orderBy("history.created_at", "desc")
+        ->take(1)
+        ->get();
+        return response()->json(['customer'=>$customer]);
+    }
+
+    public function getHistory() {
+        $user = auth()->user();
+        $body = history::where('id_user', $user->id)->get();
+        return response()->json([
+            'Message' => "Get data successfully",
+            'data' => $body,
+        ], 200);
+    }
+
+    
 }

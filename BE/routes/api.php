@@ -58,7 +58,15 @@ Route::middleware('auth:api')->group(function () {
 
     Route::get('/getListMeal', [\App\Http\Controllers\Coach\CoachController::class, 'getListMeal']); 
 
+    Route::post('/saveBody', [\App\Http\Controllers\User\UserController::class, 'saveBody']); 
     
+    Route::get('/getHistory', [\App\Http\Controllers\User\UserController::class, 'getHistory']); 
+
+    Route::get('/getBody', [\App\Http\Controllers\Coach\CoachController::class, 'getBody']); //done
+
+    Route::get('/getBodyById/{id}', [\App\Http\Controllers\Coach\CoachController::class, 'getBodyById']);
+    
+    Route::get('/getBodyCustomer', [\App\Http\Controllers\User\UserController::class, 'getBodyCustomer']);
 });
 Route::get('/getDataCustomer', [\App\Http\Controllers\Admin\AdminController::class, 'getDataCustomer']);
 Route::get('/getDataCoach', [\App\Http\Controllers\Admin\AdminController::class, 'getDataCoach']);
