@@ -147,4 +147,3 @@ class ScheduleController extends Controller
     //     return response()->json(['schedules' => $schedules]);
     // }
 }
-
