@@ -53,9 +53,13 @@ class ScheduleController extends Controller
             'error' => "The schedule field is not correct",
         ], 400);
     }
+    
     public function getDataById($id)
     {
+        //(GET DETAIL BY ID USER)check là check id_user, date, truyền id_owner, còn lại all
+
         $owner = Auth::user();
+        dd($owner->id);
         $schedule = Schedules::where("id", $id)->where("id_owner", $owner->id)->first();
         if ($schedule) {
             return response()->json([
@@ -68,10 +72,8 @@ class ScheduleController extends Controller
     }
     public function update(Request $request, $id)
     {
-        // Lấy thông tin người dùng hiện tại
         $user = Auth::user();
 
-        // Lấy lịch trình dựa trên ID
         $schedule = Schedules::find($id);
 
         // Kiểm tra xem lịch trình có tồn tại và thuộc về người dùng hiện tại hay không
@@ -79,7 +81,6 @@ class ScheduleController extends Controller
             return response()->json(['error' => 'Schedule not found or unauthorized'], 404);
         }
 
-        // Validate dữ liệu
         $validatedData = $request->validate([
             'name' => 'required|string',
             'date' => 'required|date',
@@ -90,46 +91,60 @@ class ScheduleController extends Controller
             'id_exercises' => 'nullable|integer',
         ]);
 
-        // Cập nhật thông tin lịch trình
         $schedule->update($validatedData);
 
-        // Trả về thông tin lịch trình đã được cập nhật
         return response()->json(['message' => 'Schedule updated successfully', 'schedule' => $schedule]);
     }
     public function getScheduleInDate(Request $request)
     {
-        // Validate dữ liệu đầu vào
         $request->validate([
             'date' => 'required|date',
         ]);
+        $auth = Auth::user();
+        // dd($auth);
+        if($auth->role_id == 2){
+            $dateRequest = new \DateTime($request->date); 
+            $date = $dateRequest->format('Y-m-d');
+            
+            $schedules = Schedules::where('date', $date)
+                          ->where('id_owner', $auth->id)
+                          ->get();
+            // dd($schedules);
+            return response()->json(['schedules' => $schedules]);
+        }else if($auth->role_id == 1){
+            $dateRequest = new \DateTime($request->date); 
+            $date = $dateRequest->format('Y-m-d');
+            
+            $schedules = Schedules::where('date', $date)
+                          ->where('id_user', $auth->id)
+                          ->get();
+            // dd($schedules);
 
-        // Lấy ngày từ yêu cầu
-        $date = $request->input('date');
-
-        // Lấy danh sách các lịch trình trong ngày
-        $schedules = Schedules::whereDate('date', $date)->get();
-
-        // Trả về danh sách các lịch trình
-        return response()->json(['schedules' => $schedules]);
-    }
-    public function getScheduleInMonth(Request $request)
-    {
+            return response()->json(['schedules' => $schedules]);
+        }else{
+            return response()->json(['message' => 'fail']);
+        }
         
-        $request->validate([
-            'year' => 'required|integer',
-            'month' => 'required|integer|between:1,12',
-        ]);
-
-        $year = $request->input('year');
-        $month = $request->input('month');
-
-        // Tạo một đối tượng Carbon từ năm và tháng
-        $startDate = Carbon::create($year, $month, 1)->startOfMonth();
-        $endDate = Carbon::create($year, $month, 1)->endOfMonth();
-
-        // Lấy danh sách các lịch trình trong tháng
-        $schedules = Schedules::whereBetween('date', [$startDate, $endDate])->get();
-
-        return response()->json(['schedules' => $schedules]);
     }
+    // public function getScheduleInMonth(Request $request)
+    // {
+        
+    //     $request->validate([
+    //         'year' => 'required|integer',
+    //         'month' => 'required|integer|between:1,12',
+    //     ]);
+
+    //     $year = $request->input('year');
+    //     $month = $request->input('month');
+
+    //     // Tạo một đối tượng Carbon từ năm và tháng
+    //     $startDate = Carbon::create($year, $month, 1)->startOfMonth();
+    //     $endDate = Carbon::create($year, $month, 1)->endOfMonth();
+
+    //     // Lấy danh sách các lịch trình trong tháng
+    //     $schedules = Schedules::whereBetween('date', [$startDate, $endDate])->get();
+
+    //     return response()->json(['schedules' => $schedules]);
+    // }
 }
+
