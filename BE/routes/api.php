@@ -123,6 +123,5 @@ Route::get('/schedules/month', [ScheduleController::class, 'getScheduleInMonth']
 
 // ], function ($router) {
 //     Route::post('/index', [MealsController::class, 'index']);
-//     Route::post('/create', [MealsController::class, 'create']);
-        
+//     Route::post('/create', [MealsController::class, 'create']);  
 // });
