@@ -46,6 +46,23 @@ class UserController extends Controller
         }
     }
 
+    public function getMyCoach() {
+        $user = auth()->user();
+        $coaches = intermediate::join('coach', "intermediate.id_coach", "=", "coach.id")
+                        ->select("coach.name", "coach.DOB", "coach.phone", "coach.sex", "coach.image", 
+                                "coach.degree", "intermediate.accept")
+                        ->where("intermediate.id_user", $user->id)
+                        ->get();
+        if($coaches != "[]") {
+            return response()->json([
+                'data' => $coaches
+            ], 200); 
+        }
+        return response()->json([
+            'Message' => "No data to display",
+        ], 400); 
+    }
+
     public function evaluate(Request $request, $id) {
         $user = auth()->user();
         $idCustomer = Customer::select('id')->where('id_user', $user->id)->first();

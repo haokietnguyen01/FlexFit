@@ -46,26 +46,32 @@ class AuthController extends Controller
         ]);
     }
     public function register(Request $request) {
-        $user = User::create([
-            'role_id' => 1,
-            'email' => $request->email,
-            'password' => bcrypt($request->password)
-        ]);
-    
-        if ($user) {
-            // Tạo một bản ghi Customer nếu role_id là 1 (Customer)
-            // if ($user->role_id == 1) {
-                Customer::create([
-                    'id_user' => $user->id,
-                    // Bạn có thể thêm các trường dữ liệu khác ở đây nếu cần
-                ]);
-            // }
-    
-            // Tương tự, bạn có thể thêm các trường hợp khác cho các vai trò khác ở đây
-    
-            return response()->json(['message' => 'User registered successfully', 'user' => $user]);
+        $existingUser = User::where('email', $request->email)->first();
+
+        if ($existingUser) {
+            return response()->json(['error' => 'Email already exists'], 400);
         }
-    
+        else {
+            $user = User::create([
+                'role_id' => 1,
+                'email' => $request->email,
+                'password' => bcrypt($request->password)
+            ]);
+        
+            if ($user) {
+                // Tạo một bản ghi Customer nếu role_id là 1 (Customer)
+                // if ($user->role_id == 1) {
+                    Customer::create([
+                        'id_user' => $user->id,
+                        // Bạn có thể thêm các trường dữ liệu khác ở đây nếu cần
+                    ]);
+                // }
+        
+                // Tương tự, bạn có thể thêm các trường hợp khác cho các vai trò khác ở đây
+        
+                return response()->json(['message' => 'User registered successfully', 'user' => $user]);
+            }
+        }
         return response()->json(['error' => 'Registration failed'], 500);
     }
     public function logout() {
@@ -116,18 +122,19 @@ class AuthController extends Controller
                         ->select('customer.*', 'users.email')
                         ->where('users.id', $user->id) // Lọc theo ID người dùng đã đăng nhập
                         ->first();
+            return response()->json([
+                'user' => $user,
+            ], 200);
         } else if($user->role_id==2) {
             // Lấy thông tin của customer nếu role_id không phải là 1
             $coach = User::join('coach', 'users.id', 'coach.id_user')
                 ->select('coach.*', 'users.email')
                 ->where('users.id', $user->id)
-                ->get();
+                ->first();
+            return response()->json([
+                'coach' => $coach,
+            ], 200);
         }
-
-        return response()->json([
-            'user' => $user,
-            'coach' => $coach,
-        ], 200);
     }
 
     public function Update(Request $request){
