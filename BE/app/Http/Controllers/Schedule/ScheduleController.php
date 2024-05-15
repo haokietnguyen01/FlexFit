@@ -59,7 +59,7 @@ class ScheduleController extends Controller
         //(GET DETAIL BY ID USER)check là check id_user, date, truyền id_owner, còn lại all
 
         $owner = Auth::user();
-        dd($owner->id);
+        // dd($owner->id);
         $schedule = Schedules::where("id", $id)->where("id_owner", $owner->id)->first();
         if ($schedule) {
             return response()->json([
@@ -72,26 +72,17 @@ class ScheduleController extends Controller
     }
     public function update(Request $request, $id)
     {
+        // name trong schedule để mỗi khi tạo meal, ex sẽ lưu name giống nhau:
+        // vd: nameschedule1   id_meal:1  id_ex:null   describe:abc   status: (true, false, pending) 
+        // vd: nameschedule1   id_meal:null  id_ex:1   describe:abc   status: (true, false, pending) 
         $user = Auth::user();
-
+        $data = $request->all();
         $schedule = Schedules::find($id);
 
-        // Kiểm tra xem lịch trình có tồn tại và thuộc về người dùng hiện tại hay không
-        if (!$schedule || $schedule->id_owner != $user->id) {
-            return response()->json(['error' => 'Schedule not found or unauthorized'], 404);
+        if (!$schedule) {
+            return response()->json(['error' => 'Schedule not found '], 404);
         }
-
-        $validatedData = $request->validate([
-            'name' => 'required|string',
-            'date' => 'required|date',
-            'time_start' => 'required|date_format:H:i',
-            'time_end' => 'required|date_format:H:i',
-            'describe' => 'nullable|string',
-            'id_meals' => 'nullable|integer',
-            'id_exercises' => 'nullable|integer',
-        ]);
-
-        $schedule->update($validatedData);
+        $schedule->update();
 
         return response()->json(['message' => 'Schedule updated successfully', 'schedule' => $schedule]);
     }
@@ -126,6 +117,10 @@ class ScheduleController extends Controller
         }
         
     }
+    // public function getSheduleDetail($id){
+    //     $schedule = Schedules::find($id);
+    //     return response()->json(['message' => 'Get schedule detail updated successfully', 'schedule' => $schedule]);
+    // }
     // public function getScheduleInMonth(Request $request)
     // {
         
