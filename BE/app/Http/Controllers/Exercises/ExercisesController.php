@@ -45,6 +45,23 @@ class ExercisesController extends Controller
 
         return response()->json($exercises);
     }
+    public function delete($id)
+    {
+        $exercise = Exercises::find($id);
+        
+        if (!$exercise) {
+            return response()->json([
+                'error' => "Exercise do not exist",
+            ], 404);
+        }
+        
+        $exercise->delete();
+        
+        return response()->json([
+            'success' => true,
+            'message' => 'Delete exercise successfully',
+        ], 200);
+    }
 
     public function importExercise(Request $request)
     {
