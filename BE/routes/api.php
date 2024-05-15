@@ -67,6 +67,9 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/getBodyById/{id}', [\App\Http\Controllers\Coach\CoachController::class, 'getBodyById']);
     
     Route::get('/getBodyCustomer', [\App\Http\Controllers\User\UserController::class, 'getBodyCustomer']);
+
+    Route::get('/getMyCoach', [\App\Http\Controllers\User\UserController::class, 'getMyCoach']);
+    
 });
 Route::get('/getDataCustomer', [\App\Http\Controllers\Admin\AdminController::class, 'getDataCustomer']);
 Route::get('/getDataCoach', [\App\Http\Controllers\Admin\AdminController::class, 'getDataCoach']);
@@ -77,16 +80,21 @@ Route::get('/customer/search' , [\App\Http\Controllers\Admin\AdminController::cl
 Route::get('/meals/index', [MealsController::class, 'index']);
 Route::post('/meals/create', [MealsController::class, 'create']);
 Route::get('/meals/search' , [MealsController::class, 'searchByName']);
+Route::get('/meals/delete/{id}', [MealsController::class, 'delete']);
+
 //Type Meals
 Route::get('/type_meal/index', [TypeMealsController::class, 'index']);
 Route::post('/type_meal/create', [TypeMealsController::class, 'create']);
 //Type Exercises
 Route::get('/type_exercises/index', [TypeExercisesController::class, 'index']);
 Route::post('/type_exercises/create', [TypeExercisesController::class, 'create']);
+
 //Exercises
 Route::get('/exercises/index', [ExercisesController::class, 'index']);
 Route::post('/exercises/create', [ExercisesController::class, 'create']);
 Route::get('/exercises/search' , [ExercisesController::class, 'searchByName']);
+Route::get('/exercises/delete/{id}', [ExercisesController::class, 'delete']);
+
 //Degree
 Route::get('/degree/index', [DegreeController::class, 'index']);
 Route::post('/degree/create', [DegreeController::class, 'storeTemporaryDegree']);
