@@ -22,6 +22,7 @@ return new class extends Migration
             $table->time('time_start');
             $table->time('time_end');
             $table->longText('describe');
+            $table->enum('status', ['Processed', 'Cancel', 'Waiting'])->nullable();
             $table->integer('id_meals')->nullable();
             $table->integer('id_exercises')->nullable();
             $table->timestamps();

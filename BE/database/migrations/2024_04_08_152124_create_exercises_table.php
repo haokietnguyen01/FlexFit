@@ -18,6 +18,7 @@ return new class extends Migration
             $table->String('rep');
             $table->String('time_minutes');
             $table->String('calo_kcal');
+            $table->String('url');
             $table->Integer('id_type_ex');
             $table->timestamps();
         });
