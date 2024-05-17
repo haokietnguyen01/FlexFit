@@ -34,6 +34,16 @@ class UserController extends Controller
     public function sendRequest($id) {
         $user = auth()->user();
         $data = ["id_coach" => $id, "id_user" => $user->id];
+        $existingRequest = intermediate::where('id_user', $user->id)
+                                    ->where('id_coach', $id)
+                                    ->first();
+
+        if ($existingRequest) {
+            return response()->json([
+                'Message' => "You have already sent a request to this coach!",
+            ], 400); 
+        }
+        
         if(intermediate::create($data)) {
             return response()->json([
                 'Message' => "Send request successlly",
