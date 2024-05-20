@@ -32,7 +32,7 @@ class CoachController extends Controller
         $getIdCoach = Coach::where("id_user", auth()->id())->select("id")->first();
         $getCustomer = intermediate::join("Customer", "Customer.id_user", "=", "intermediate.id_user")
         ->select("intermediate.id", "intermediate.id_coach", "intermediate.accept", "Customer.id_user", "Customer.name", "Customer.DOB", "Customer.phone", "Customer.sex")
-        ->where("accept", 0)->where("id_coach", $getIdCoach->id)
+        ->where("accept", 0)->where("id_coach", $getIdCoach->id)->where('id_payment', '!=', 0)
         ->orderBy("intermediate.id", "ASC")
         ->get();
 
