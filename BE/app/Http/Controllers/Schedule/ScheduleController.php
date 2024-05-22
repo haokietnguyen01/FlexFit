@@ -41,6 +41,7 @@ class ScheduleController extends Controller
             'schedule' => $schedule
         ], 200);
     }
+    
     public function delete($id)
     {
         $owner = Auth::user();
