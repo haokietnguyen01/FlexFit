@@ -16,7 +16,6 @@ class ScheduleController extends Controller
     {
         $rules=[
             'name' => 'required',
-            'name' => 'required',
             'date' => 'required|date',
             'time_start' => 'required|date_format:H:i',
             'time_end' => 'required|date_format:H:i',
@@ -29,7 +28,8 @@ class ScheduleController extends Controller
         $data['id_owner'] = $owner->id;
         $date = new \DateTime($data['date']);
         $data['date'] = $date->format('Y-m-d');
-
+        $data['status'] = 'Waiting';
+        
         // Xử lý định dạng giờ sử dụng Carbon
         $timezone = 'Asia/Ho_Chi_Minh';
         $data['time_start'] = Carbon::createFromFormat('H:i', $data['time_start'], $timezone)->format('H:i:s');
@@ -80,7 +80,8 @@ class ScheduleController extends Controller
         $user = Auth::user();
         $data = $request->all();
         $schedule = Schedules::find($id);
-
+        $schedule->status = $data['status'];
+        $schedule->describe = $data['describe'];
         if (!$schedule) {
             return response()->json(['error' => 'Schedule not found '], 404);
         }

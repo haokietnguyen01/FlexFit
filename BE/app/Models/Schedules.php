@@ -21,5 +21,6 @@ class Schedules extends Model
         'describe',
         'id_meals',
         'id_exercises',
+        'status'
     ];
 }
