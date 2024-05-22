@@ -109,7 +109,7 @@ Route::get('/process-cancel', [\App\Http\Controllers\User\PayPalController::clas
 //Schedule
 Route::post('/schedule/create',[ScheduleController::class, 'create']);
 Route::get('/schedule/delete/{id}',[ScheduleController::class, 'delete']);
-Route::get('/schedule/get-data',[ScheduleController::class, 'getDataById']);
+Route::get('/schedule/get-data/{id}',[ScheduleController::class, 'getDataById']);
 Route::post('/schedule/{id}', [ScheduleController::class, 'update']);
 Route::get('/schedules/date', [ScheduleController::class, 'getScheduleInDate']);
 Route::get('/schedules/month', [ScheduleController::class, 'getScheduleInMonth']);
