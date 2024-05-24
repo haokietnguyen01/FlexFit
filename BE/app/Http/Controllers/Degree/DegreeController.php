@@ -86,7 +86,7 @@ class DegreeController extends Controller
         // Thêm dữ liệu từ bảng User vào bảng Coach
         $coach = new Coach;
         $coach->id_user = $request->id_user;
-        $coach->name = $customer->name; // hoặc các trường khác mà bạn muốn chuyển
+        $coach->name = $customer->name; 
         $coach->DOB = $customer->DOB;
         $coach->phone = $customer->phone;
         $coach->sex = $customer->sex;

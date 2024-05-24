@@ -37,10 +37,11 @@ class UserController extends Controller
         $existingRequest = intermediate::where('id_user', $user->id)
                                     ->where('id_coach', $id)
                                     ->first();
+        $existUser = intermediate::where('id_user', $user->id)->first();
 
-        if ($existingRequest) {
+        if ($existingRequest || $existUser) {
             return response()->json([
-                'Message' => "You have already sent a request to this coach!",
+                'Message' => "You have already sent a request to a coach!",
             ], 400); 
         }
         

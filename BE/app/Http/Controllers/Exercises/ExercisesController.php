@@ -20,6 +20,16 @@ class ExercisesController extends Controller
     }
     public function create(Request $request)
     {
+        $rules = [
+            'name' => 'required|string|max:255',
+            'set' => 'required|string|max:255',
+            'rep' => 'required|string|max:255',
+            'time_minutes' => 'required|string|max:255',
+            'calo_kcal' => 'required|string|max:255',
+            'url' => 'nullable|url|max:255',
+            'id_type_ex' => 'nullable|integer'
+        ];
+        $request->validate($rules);
         $data= $request->all();
         if($data){
             Exercises::create($data);
@@ -28,8 +38,10 @@ class ExercisesController extends Controller
                 'message' => 'bài tập đã được thêm thành công',
                 'data' => $data,
             ], 200);
+        } else {
+            return response()->json(['error' => 'Exercise creation failed'], 400);
         }
-        return response()->json(['error' => 'create failed'], 400);
+        return response()->json(['error' => 'Validation failed'], 400);
     }
     public function searchByName(Request $request)
     {

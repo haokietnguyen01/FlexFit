@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Schedules;
 use App\Models\User;
+use App\Models\intermediate;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
@@ -13,20 +14,22 @@ class ScheduleController extends Controller
 {
     public function create(Request $request)
     {
-        $request->validate([
-            'id_owner' => 'required',
+        $rules=[
             'name' => 'required',
             'date' => 'required|date',
             'time_start' => 'required|date_format:H:i',
             'time_end' => 'required|date_format:H:i',
-        ]);
+            'describe' => 'required',
+        ];
+        $request->validate($rules);
         $owner = Auth::user();
         // dd($owner->id);
         $data = $request->all();
         $data['id_owner'] = $owner->id;
         $date = new \DateTime($data['date']);
         $data['date'] = $date->format('Y-m-d');
-
+        $data['status'] = 'Waiting';
+        
         // Xử lý định dạng giờ sử dụng Carbon
         $timezone = 'Asia/Ho_Chi_Minh';
         $data['time_start'] = Carbon::createFromFormat('H:i', $data['time_start'], $timezone)->format('H:i:s');
@@ -38,6 +41,7 @@ class ScheduleController extends Controller
             'schedule' => $schedule
         ], 200);
     }
+    
     public function delete($id)
     {
         $owner = Auth::user();
@@ -56,8 +60,6 @@ class ScheduleController extends Controller
     
     public function getDataById($id)
     {
-        //(GET DETAIL BY ID USER)check là check id_user, date, truyền id_owner, còn lại all
-
         $owner = Auth::user();
         // dd($owner->id);
         $schedule = Schedules::where("id", $id)->where("id_owner", $owner->id)->first();
@@ -78,7 +80,8 @@ class ScheduleController extends Controller
         $user = Auth::user();
         $data = $request->all();
         $schedule = Schedules::find($id);
-
+        $schedule->status = $data['status'];
+        $schedule->describe = $data['describe'];
         if (!$schedule) {
             return response()->json(['error' => 'Schedule not found '], 404);
         }
@@ -118,28 +121,4 @@ class ScheduleController extends Controller
         }
         
     }
-    // public function getSheduleDetail($id){
-    //     $schedule = Schedules::find($id);
-    //     return response()->json(['message' => 'Get schedule detail updated successfully', 'schedule' => $schedule]);
-    // }
-    // public function getScheduleInMonth(Request $request)
-    // {
-        
-    //     $request->validate([
-    //         'year' => 'required|integer',
-    //         'month' => 'required|integer|between:1,12',
-    //     ]);
-
-    //     $year = $request->input('year');
-    //     $month = $request->input('month');
-
-    //     // Tạo một đối tượng Carbon từ năm và tháng
-    //     $startDate = Carbon::create($year, $month, 1)->startOfMonth();
-    //     $endDate = Carbon::create($year, $month, 1)->endOfMonth();
-
-    //     // Lấy danh sách các lịch trình trong tháng
-    //     $schedules = Schedules::whereBetween('date', [$startDate, $endDate])->get();
-
-    //     return response()->json(['schedules' => $schedules]);
-    // }
 }
