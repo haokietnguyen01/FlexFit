@@ -15,9 +15,12 @@ class DegreeController extends Controller
 {
     public function index()
     {
-        $degree = Degree::all();
-
-        return response()->json($degree);
+        $degrees = DB::table('degree')
+            ->join('customer', 'degree.id_customer', '=', 'customer.id')
+            ->join('users', 'customer.id_user', '=', 'users.id')
+            ->select('degree.id as degree_id', 'degree.degree_image', 'degree.status', 'customer.id as customer_id', 'customer.name', 'customer.DOB', 'customer.phone', 'customer.sex', 'customer.image', 'users.id as user_id', 'users.role_id', 'users.email')
+            ->get();
+        return response()->json($degrees);
     }
     public function storeTemporaryDegree(Request $request)
     {

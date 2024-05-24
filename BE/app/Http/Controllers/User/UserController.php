@@ -59,8 +59,9 @@ class UserController extends Controller
     public function getMyCoach() {
         $user = auth()->user();
         $coaches = intermediate::join('coach', "intermediate.id_coach", "=", "coach.id")
-                        ->select("coach.name", "coach.DOB", "coach.phone", "coach.sex", "coach.image", 
-                                "coach.degree", "intermediate.accept")
+                        ->join('users',"users.id","=","coach.id_user")
+                        ->select("coach.id_user","coach.name", "coach.DOB", "coach.phone", "coach.sex", "coach.image", 
+                                "coach.degree","coach.address","users.email","intermediate.accept")
                         ->where("intermediate.id_user", $user->id)
                         ->get();
         if($coaches != "[]") {
@@ -70,7 +71,7 @@ class UserController extends Controller
         }
         return response()->json([
             'Message' => "No data to display",
-        ], 400); 
+        ], 400);
     }
 
     public function evaluate(Request $request, $id) {

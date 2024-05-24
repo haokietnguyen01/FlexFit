@@ -108,6 +108,7 @@ class ScheduleController extends Controller
             
             $schedules = Schedules::where('date', $date)
                           ->where('id_user', $auth->id)
+                          ->where('id_owner',$request->id_coach)
                           ->get();
             // dd($schedules);
 

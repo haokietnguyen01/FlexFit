@@ -119,22 +119,24 @@ class AuthController extends Controller
         if ($user->role_id == 1) {
             // Lấy thông tin của coach nếu role_id là 1 
             $user = User::join('customer', 'users.id', '=', 'customer.id_user')
-                        ->select('customer.*', 'users.email')
+                        ->join('degree', 'users.id', '=' , 'degree.id_customer')
+                        ->select('customer.*', 'users.email','degree.status')
                         ->where('users.id', $user->id) // Lọc theo ID người dùng đã đăng nhập
                         ->first();
-            return response()->json([
-                'user' => $user,
-            ], 200);
+                        return response()->json([
+                            'user' => $user,
+                        ], 200);
         } else if($user->role_id==2) {
             // Lấy thông tin của customer nếu role_id không phải là 1
             $coach = User::join('coach', 'users.id', 'coach.id_user')
                 ->select('coach.*', 'users.email')
                 ->where('users.id', $user->id)
                 ->first();
-            return response()->json([
-                'coach' => $coach,
-            ], 200);
+                return response()->json([
+                    'coach' => $coach,
+                ], 200);
         }
+
     }
 
     public function Update(Request $request){
