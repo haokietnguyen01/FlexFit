@@ -10,6 +10,8 @@ use App\Models\Customer;
 use App\Models\Coach;
 use App\Models\User;
 use App\Models\Type_Meal;
+use App\Models\Invoice;
+
 
 class CoachController extends Controller
 {
@@ -89,5 +91,23 @@ class CoachController extends Controller
         ->take(1)
         ->get();
         return response()->json(['customer'=>$customer]);
+    }
+
+    public function getInvoices() {
+        $user = auth()->user();
+        $getIdCoach = Coach::where("id_user", auth()->id())->select("id")->first();
+        $invoices = intermediate::join('invoices', 'intermediate.id_payment', 'invoices.id')
+        ->join('customer', 'intermediate.id_user', 'customer.id_user')
+        ->select('intermediate.id', 'customer.name', 'customer.phone', 'customer.sex', 
+                'invoices.id_invoice', 'invoices.total_money')
+        ->where('intermediate.id_coach', $getIdCoach->id)->get();
+        if($invoices != "[]") {
+            return response()->json([
+                'invoices' => $invoices
+            ]);
+        }
+        return response()->json([
+            'messages' => "No data to display"
+        ]);
     }
 }
