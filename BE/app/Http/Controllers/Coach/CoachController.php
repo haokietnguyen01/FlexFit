@@ -10,6 +10,8 @@ use App\Models\Customer;
 use App\Models\Coach;
 use App\Models\User;
 use App\Models\Type_Meal;
+use App\Models\Invoice;
+
 
 class CoachController extends Controller
 {
@@ -32,7 +34,7 @@ class CoachController extends Controller
         $getIdCoach = Coach::where("id_user", auth()->id())->select("id")->first();
         $getCustomer = intermediate::join("Customer", "Customer.id_user", "=", "intermediate.id_user")
         ->select("intermediate.id", "intermediate.id_coach", "intermediate.accept", "Customer.id_user", "Customer.name", "Customer.DOB", "Customer.phone", "Customer.sex")
-        ->where("accept", 0)->where("id_coach", $getIdCoach->id)
+        ->where("accept", 0)->where("id_coach", $getIdCoach->id)->where('id_payment', '!=', 0)
         ->orderBy("intermediate.id", "ASC")
         ->get();
 
@@ -89,5 +91,23 @@ class CoachController extends Controller
         ->take(1)
         ->get();
         return response()->json(['customer'=>$customer]);
+    }
+
+    public function getInvoices() {
+        $user = auth()->user();
+        $getIdCoach = Coach::where("id_user", auth()->id())->select("id")->first();
+        $invoices = intermediate::join('invoices', 'intermediate.id_payment', 'invoices.id')
+        ->join('customer', 'intermediate.id_user', 'customer.id_user')
+        ->select('intermediate.id', 'customer.name', 'customer.phone', 'customer.sex', 
+                'invoices.id_invoice', 'invoices.total_money')
+        ->where('intermediate.id_coach', $getIdCoach->id)->get();
+        if($invoices != "[]") {
+            return response()->json([
+                'invoices' => $invoices
+            ]);
+        }
+        return response()->json([
+            'messages' => "No data to display"
+        ]);
     }
 }

@@ -54,8 +54,8 @@ Route::middleware('auth:api')->group(function () {
 
     // Rate and Comment with id_coach
     Route::post('/evaluate/{id}', [\App\Http\Controllers\User\UserController::class, 'evaluate']); 
-
-
+    Route::get('/getInvoices', [\App\Http\Controllers\Coach\CoachController::class, 'getInvoices']); 
+    
     Route::get('/getListMeal', [\App\Http\Controllers\Coach\CoachController::class, 'getListMeal']); 
 
     Route::post('/saveBody', [\App\Http\Controllers\User\UserController::class, 'saveBody']); 

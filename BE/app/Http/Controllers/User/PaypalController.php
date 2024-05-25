@@ -13,13 +13,14 @@ class PaypalController extends Controller
 {
     public function processPaypal(Request $request)
     {
+        $user = auth()->user();
         $provider = new PayPalClient;
         $provider->setApiCredentials(config('paypal'));
         $paypalToken = $provider->getAccessToken();
         $response = $provider->createOrder([
             "intent" => "CAPTURE",
             "application_context" => [
-                "return_url" => route('success', ['user_id' => $request->user_id, 'price' => $request->price]),
+                "return_url" => route('success', ['user_id' => $user->id, 'price' => $request->price]),
                 "cancel_url" => route('cancel'),
             ],
             "purchase_units" => [
