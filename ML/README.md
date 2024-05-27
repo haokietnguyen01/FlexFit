@@ -4,3 +4,6 @@ This is a Repository Set up for the M.Sc in AI module ICS5110 Applied Machine le
 To Interact with the live demo of the models please follow the Google Drive link below that will take to a folder containing a Google Colab Script and the our pretrained Models
 
 https://drive.google.com/drive/folders/1dlteRwdwCs0RWFWq-7JiBQJeWua2jX6J?usp=sharing
+
+- dùng ICS5110_Applied_Machine_Learning_Bayesian_Regression_Implementation.ipynb để train và xuất file bayesian_ridge_regression.sav
+- dùng load.py để load model

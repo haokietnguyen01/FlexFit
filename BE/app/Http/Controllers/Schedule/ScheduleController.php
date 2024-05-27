@@ -17,8 +17,8 @@ class ScheduleController extends Controller
         $rules=[
             'name' => 'required',
             'date' => 'required|date',
-            'time_start' => 'required|date_format:H:i',
-            'time_end' => 'required|date_format:H:i',
+            // 'time_start' => 'required|date_format:H:i',
+            // 'time_end' => 'required|date_format:H:i',
             'describe' => 'required',
         ];
         $request->validate($rules);
@@ -31,9 +31,9 @@ class ScheduleController extends Controller
         $data['status'] = 'Waiting';
         
         // Xử lý định dạng giờ sử dụng Carbon
-        $timezone = 'Asia/Ho_Chi_Minh';
-        $data['time_start'] = Carbon::createFromFormat('H:i', $data['time_start'], $timezone)->format('H:i:s');
-        $data['time_end'] = Carbon::createFromFormat('H:i', $data['time_end'], $timezone)->format('H:i:s');
+        // $timezone = 'Asia/Ho_Chi_Minh';
+        // $data['time_start'] = Carbon::createFromFormat('H:i', $data['time_start'], $timezone)->format('H:i:s');
+        // $data['time_end'] = Carbon::createFromFormat('H:i', $data['time_end'], $timezone)->format('H:i:s');
 
         $schedule = Schedules::create($data);
         return response()->json([
