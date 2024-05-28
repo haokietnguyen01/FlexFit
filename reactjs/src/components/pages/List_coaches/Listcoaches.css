@@ -147,5 +147,81 @@
 
 
 
+#list_coaches .pagination button {
+    font-size: 14px;
+    padding: 8px 12px;
+    margin-right: 8px;
+    border: 1px solid #000;
+    background-color: transparent;
+    color: #000;
+    cursor: pointer;
+}
 
+#list_coaches .pagination button:hover {
+    background-color: #F53838;
+    color: #fff;
+}
+
+#list_coaches .pagination .btn-next,
+#list_coaches .pagination .btn-prev {
+    width:55px;
+}
+
+#list_coaches .pagination .disabled {
+    border: 1px solid #ccc;
+    color: #ccc;
+    cursor: not-allowed;
+}
+
+#list_coaches .pagination .btn-active {
+    background-color: #F53838;
+    color: #fff;
+    border: 1px solid #F53838;
+}
+
+#list_coaches .pagination span {
+    margin-right: 20px;
+}
+
+#list_coaches .btn-next {
+    margin-right: 0;
+}
+
+#list_coaches .btn-prev:last-child {
+    margin-right: 20px;
+}
+
+#list_coaches .btn-next {
+    margin-right: 0;
+}
+
+#list_coaches .btn-prev:last-child {
+    margin-right: 20px;
+}
+
+#list_coaches .pagination .btn-prev {
+    order: 2;
+}
+
+#list_coaches .pagination .btn-next {
+    order: 3;
+}
+
+#list_coaches .pagination button:not(.disabled) ~ button:last-child {
+    display: inline-block;
+}
+
+#list_coaches .pagination .btn-prev,
+#list_coaches .pagination .btn-active,
+#list_coaches .pagination .btn-next {
+    display: inline-block; /* Hiển thị chỉ các nút prev, active và next */
+}
+
+#list_coaches .pagination .btn-prev + button,
+#list_coaches .pagination .btn-active + button {
+    display: inline-block; /* Hiển thị nút trang tiếp theo sau nút prev hoặc active */
+}
+#list_coaches .btn-next {
+    margin-right:59px!important;
+}
 

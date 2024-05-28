@@ -40,10 +40,11 @@ export default function InformationExercise() {
 
     const getInformationExerciseForDate = () => {
         axiosInstance.get('/schedules/date', {
-            params: { date, id_coach },
+            params: { date, id_coach, id_user },
             headers: config.headers
         })
             .then(response => {
+                console.log(response)
                 const schedules = response.data.schedules;
                 setDataExerciseForDate(schedules);
                 setExpandedStates(new Array(schedules.length).fill(false)); // Initialize expanded states
@@ -63,47 +64,6 @@ export default function InformationExercise() {
         setExpandedStates(prevStates => prevStates.map((state, i) => i === index ? !state : state));
     };
 
-    const renderScheduleExercise = () => {
-        const exerciseData = getDataExerciseForDate.filter(item => item.id_exercises !== null);
-        console.log(exerciseData)
-        // return (
-        //     <div className="col-sm-12 mb-5" key={index}>
-        //         <div className="col-sm-12 center">
-        //             <ReactPlayer
-        //                 className="thinh"
-        //                 controls={true}
-        //                 url={findTypeExerciseUrl(value.id_exercises)}
-        //                 height="700"
-        //                 width="500"
-        //             />
-        //         </div>
-        //         <div className="col-sm-12 center">
-        //             {/* <button
-        //                 className="btn btn-submit"
-        //                 onClick={() => submitExercise(value.id_exercises)}
-        //                 disabled={submittedExercises.has(value.id_exercises)}
-        //             >
-        //                 {submittedExercises.has(value.id_exercises) ? "Đã gửi" : "Gửi"}
-        //             </button> */}
-        //             <button className="btn btn-submit" onClick={() => handleSubmit(value.id_exercises)}>Send</button>
-        //         </div>
-        //     </div>
-        // );
-        return exerciseData.map((value, index) => (
-            <div className="col-sm-12">
-                <div className="col-sm-12 center">
-                    <ReactPlayer
-                        className="thinh"
-                        controls={true}
-                        url={findTypeExerciseUrl(value.id_exercises)}
-                        height="700"
-                        width="500"
-                    />
-                </div>
-            </div>
-        ));
-    };
-
     const renderNames = () => {
         const exerciseData = getDataExerciseForDate.filter(item => item.id_exercises !== null);
         return exerciseData.map((value, index) => (
@@ -121,7 +81,19 @@ export default function InformationExercise() {
                 </p>
                 {expandedStates[index] && (
                     <div className="row">
-                        {renderScheduleExercise(index)}
+                        <div className="col-sm-12 center">
+                            <ReactPlayer
+                                className="thinh"
+                                controls={true}
+                                url={findTypeExerciseUrl(value.id_exercises)}
+                                height="700"
+                                width="500"
+                            />
+                        </div>
+                        <div className="col-sm-12 center">
+                            <h5 className="mb-4">Comment</h5>
+                            <p>{value.describe}</p>
+                        </div>
                     </div>
                 )}
             </div>
@@ -138,4 +110,5 @@ export default function InformationExercise() {
             </div>
         </div>
     );
+
 }

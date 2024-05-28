@@ -255,9 +255,9 @@ export default function Exercise() {
             return; // Không làm gì nếu không có thời gian được chọn
         }
         if (
-            parseInt(inputs.set) < 1 || parseInt(inputs.set) > 100 ||
-            parseInt(inputs.rep) < 1 || parseInt(inputs.rep) > 100 ||
-            parseInt(inputs.calo_kcal) < 1 || parseInt(inputs.calo_kcal) > 100 ||
+            parseInt(inputs.set) < 0 || parseInt(inputs.set) > 100 ||
+            parseInt(inputs.rep) < 0 || parseInt(inputs.rep) > 100 ||
+            parseInt(inputs.calo_kcal) < 0 || parseInt(inputs.calo_kcal) > 1000 ||
             parseInt(inputs.time_minutes) < 1 || parseInt(inputs.time_minutes) > 100
         ) {
             setModalVisible5(true);
@@ -620,4 +620,5 @@ export default function Exercise() {
             {renderModal5()}
         </div>
     )
+
 }

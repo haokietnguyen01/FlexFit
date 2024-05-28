@@ -26,7 +26,7 @@ export default function History() {
 
     function formatDate(dateString) {
         const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
-        return new Date(dateString).toLocaleDateString(undefined, options);
+        return new Date(dateString).toLocaleDateString('en-US', options);
     }
 
     function getHistory() {
@@ -102,6 +102,7 @@ export default function History() {
                 <td>{value.biceps}</td>
                 <td>{value.forearm}</td>
                 <td>{value.wrist}</td>
+                <td>{value.bodyfat}</td>
             </tr>
         ));
     }
@@ -128,6 +129,7 @@ export default function History() {
                                             <th scope="col">Biceps</th>
                                             <th scope="col">Forearm</th>
                                             <th scope="col">Wrist</th>
+                                            <th scope="col">Body_fat(%)</th>
                                         </tr>
                                     </thead>
                                     <tbody>

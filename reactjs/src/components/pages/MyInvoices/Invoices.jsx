@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axiosInstance from "../../Axios/axios";
 import "./Invoices.css";
-
+import { Link, useLocation, useNavigate } from "react-router-dom";
 export default function Invoices() {
   const [invoices, setInvoices] = useState([]);
   const user = JSON.parse(localStorage.getItem("authcustomer"));
@@ -69,7 +69,7 @@ export default function Invoices() {
                 <tbody>
                   <tr>
                     <td>
-                      Tổng cộng: {invoice.total_money} VND<br />
+                      Total: {invoice.total_money} VND<br />
                       <br />
                     </td>
                   </tr>
@@ -86,6 +86,9 @@ export default function Invoices() {
     <div className="invoice-box center">
       <h1 className="invoice-title mb-4">Invoices</h1>
       {renderInvoices()}
+      <div className="btn mt-4">
+        <Link className="btn btn-back" to="/">Back To Home</Link>
+      </div>
     </div>
   );
 }

@@ -142,7 +142,7 @@ export default function InformationCustomer() {
             <div className="container">
                 <div className="row justify-content-center mb-4">
                     <div className="col-sm-6 center">
-                        <img src="http://localhost/BE/public/images/Image14.png" alt="" className="mb-3" />
+                        <img src="http://localhost:8080/BE/public/images/Image14.png" alt="" className="mb-3" />
                         <p>{getDetailData.name}</p>
                         <p>{dayjs(getDetailData.DOB).format('DD-MM-YYYY')}</p>
                     </div>
@@ -151,20 +151,22 @@ export default function InformationCustomer() {
                     <div className="col-sm-10 border-detail mb-5">
                         <div className="row">
                             <div className="col-sm-6 mt-5 mb-5">
-                                <p><span>Height:</span> {getDetailData.height}</p>
+                                <p><span>Height:</span> {getDetailData.height} m</p>
                                 <p><span>Sex:</span> Female</p>
-                                <p><span>Ankle:</span> {getDetailData.ankle}</p>
-                                <p><span>Knee:</span> {getDetailData.knee}</p>
-                                <p><span>Neck:</span> {getDetailData.neck}</p>
-                                <p><span>Chest:</span> {getDetailData.chest}</p>
+                                <p><span>Age:</span> {getDetailData.age} </p>
+                                <p><span>Ankle:</span> {getDetailData.ankle} cm</p>
+                                <p><span>Knee:</span> {getDetailData.knee} cm</p>
+                                <p><span>Neck:</span> {getDetailData.neck} cm</p>
+                                <p><span>Chest:</span> {getDetailData.chest} cm</p>
                             </div>
                             <div className="col-sm-6  mt-5 mb-5">
-                                <p><span>Abdomen:</span> {getDetailData.abdomen}</p>
-                                <p><span>Hip:</span> {getDetailData.hip}</p>
-                                <p><span>Thigh:</span> {getDetailData.thigh}</p>
-                                <p><span>Biceps:</span> {getDetailData.biceps}</p>
-                                <p><span>Forearm:</span> {getDetailData.forearm}</p>
-                                <p><span>Wrist:</span> {getDetailData.wrist}</p>
+                                <p><span>Weight:</span> {getDetailData.weight} kg</p>
+                                <p><span>Abdomen:</span> {getDetailData.abdomen} cm</p>
+                                <p><span>Hip:</span> {getDetailData.hip} cm</p>
+                                <p><span>Thigh:</span> {getDetailData.thigh} cm</p>
+                                <p><span>Biceps:</span> {getDetailData.biceps} cm</p>
+                                <p><span>Forearm:</span> {getDetailData.forearm} cm</p>
+                                <p><span>Wrist:</span> {getDetailData.wrist} cm</p>
                             </div>
                             <div className="col-sm-12 center">
                                 <p className="red">Your Body_Fat: <span>{getDetailData.bodyfat}%</span></p>
@@ -181,5 +183,6 @@ export default function InformationCustomer() {
             {renderModal1()}
         </div>
     )
+
 
 }

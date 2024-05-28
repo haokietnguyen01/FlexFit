@@ -5,7 +5,7 @@ export default function Navbar() {
         <div className="col-sm-2">
             <div className="border-container">
                 <div className="logo flex mt-3 justify-content-center">
-                    <img src="http://localhost/BE/public/images/Image8.jpg" alt={8888} />
+                    <img src="http://localhost:8080/BE/public/images/Image8.jpg" alt={8888} />
                     <p>FlexFit</p>
                 </div>
                 <div className="mt-3 ms-4 menu_detail">

@@ -39,7 +39,7 @@ export default function ScheduleMeal() {
     }, [expanded]);
     const getInformationMealForDate = () => {
         axiosInstance.get('/schedules/date', {
-            params: { date, id_coach },
+            params: { date, id_coach ,id_user},
             headers: config.headers
         })
             .then(response => {
@@ -57,18 +57,13 @@ export default function ScheduleMeal() {
         console.log(mealData)
         return mealData.map((value, index) => (
             <div className="col-sm-12 flex" key={index}>
-                <div className="col-sm-3 center">
+                <div className="col-sm-4 center">
                     <p>{value.name}</p>
                 </div>
-                <div className="col-sm-3 center">
-                    <p>{value.time_end}</p>
+                <div className="col-sm-4 center">
+                    <p>{100*value.weight} gram</p>
                 </div>
-                {value.status === "Processed" && (
-                    <div className="col-sm-3 center checkstatus">
-                        <i className="fa fa-check" aria-hidden="true"></i>
-                    </div>
-                )}
-                <div className="col-sm-3 center">
+                <div className="col-sm-4 center">
                     <p>{value.describe}</p>
                 </div>
                 {/* <div className="col-sm-3 center">
@@ -105,16 +100,13 @@ export default function ScheduleMeal() {
                     >
                         <div className="row">
                             <div className="col-sm-12 mb-4 flex">
-                                <div className="col-sm-3 center">
+                                <div className="col-sm-4 center">
                                     <h6 className="mb-5">Product Name</h6>
                                 </div>
-                                <div className="col-sm-3 center">
-                                    <h6 className="mb-5">Time_end</h6>
-                                </div>
-                                <div className="col-sm-3 center">
-                                    <h6 className="mb-5">Status</h6>
-                                </div>
-                                <div className="col-sm-3 center">
+                                <div className="col-sm-4 center">
+                                    <h6 className="mb-5">Weight</h6>
+                                </div>                          
+                                <div className="col-sm-4 center">
                                     <h6 className="mb-5">Comment</h6>
                                 </div>
                             </div>
@@ -125,4 +117,5 @@ export default function ScheduleMeal() {
             </div>
         </div>
     );
+
 }

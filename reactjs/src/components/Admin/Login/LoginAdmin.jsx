@@ -64,7 +64,7 @@ export default function LoginAdmin() {
             <div className="container">
                 <div className="row justify-content-center">
                     <div className="col-sm-6 ta-end login_logo">
-                        <img src="http://localhost/BE/public/images/Image8.jpg" alt={8888} />
+                        <img src="http://localhost:8080/BE/public/images/Image8.jpg" alt={8888} />
                     </div>
                     <div className="col-sm-6 login_logo_name">
                         <p className>Flexfit</p>

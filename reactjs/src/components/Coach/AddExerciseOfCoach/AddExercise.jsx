@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import axiosInstance from "../../Axios/axios";
 export default function AddExerciseOfCoach() {
     const [page, setPage] = useState(1); // State để theo dõi trang hiện tại
-    const [perPage] = useState(7); // Số bản ghi hiển thị trên mỗi trang
+    const [perPage] = useState(14); // Số bản ghi hiển thị trên mỗi trang
     const [getExercise, setExercise] = useState([]);
     const [selectedExercise, setSelectedExercise] = useState('');
     const [mealName, setExerciseName] = useState('');
@@ -17,6 +17,7 @@ export default function AddExerciseOfCoach() {
         name: "",
         quantity: "",
     })
+    const [getTypeExercise, setTypeExercise] = useState([]);
     const [isModalVisible, setModalVisible] = useState(false);
     const [isModalVisible2, setModalVisible2] = useState(false);
     const [isModalVisible3, setModalVisible3] = useState(false);
@@ -29,7 +30,13 @@ export default function AddExerciseOfCoach() {
     const coach = JSON.parse(localStorage.getItem("authcoach"));
     const token = coach?.data?.auth_token;
     const id_coach = coach?.data?.auth?.id;
-
+    const [rep, setRep] = useState('');
+    const [set,setSet ] = useState('');
+    const [time_minutes, setTime_minutes] = useState('');
+    const [calo_kcal, setCaloKcal] = useState('');
+    const [youtube, setYoutube] = useState('');
+    const [weight ,setWeight] = useState('')
+    const [getNameTypeEx , setNameTypeEx] = useState('')
     const config = {
         headers: {
             'Authorization': `Bearer ${token}`,
@@ -39,11 +46,36 @@ export default function AddExerciseOfCoach() {
     // Tính toán totalPages
     const totalData = isSearching ? getSearchExercise.length : getDataExerciseForDate.length;
     const totalPages = Math.ceil(totalData / perPage);
-
+    const handleSelectChange = (e) => {
+        setSelectedExercise(e.target.value);
+    }
     useEffect(() => {
+        if (selectedExercise) {
+            const selectedEx = getExercise.find(ex => ex.id === parseInt(selectedExercise));
+            const selectedTypeExName = getTypeExercise.find(ex => ex.id === parseInt(selectedExercise));
+            console.log(selectedTypeExName)
+            if (selectedEx) {
+                setRep(selectedEx.rep);
+                setSet(selectedEx.set);
+                setTime_minutes(selectedEx.time_minutes);
+                setCaloKcal(selectedEx.calo_kcal)
+                setYoutube(selectedEx.url)
+                setWeight(100)
+                // setNameTypeEx(selectedTypeExName.name)
+                // Cập nhật các thuộc tính khác tương tự ở đây
+            }
+        } else {
+            setRep('')
+            setSet('')
+            setTime_minutes('')
+            setCaloKcal('')
+            setYoutube('')
+            // Đặt các thuộc tính khác về giá trị mặc định ở đây
+        }
         Exercise();
         getInformationExerciseForDate();
-    }, []);
+        TypeExercise();
+    }, [selectedExercise]);
 
     // Get thông tin meal 
     function getInformationExerciseForDate() {
@@ -56,7 +88,6 @@ export default function AddExerciseOfCoach() {
         })
             .then(response => {
                 setDataExerciseForDate(response.data.schedules);
-                console.log(response.data);
             })
             .catch(error => {
                 console.log(error);
@@ -93,6 +124,16 @@ export default function AddExerciseOfCoach() {
         const currentMinute = now.getMinutes().toString().padStart(2, '0'); // Lấy phút hiện tại
         return `${currentHour}:${currentMinute}`;
     }
+    function TypeExercise() {
+        axiosInstance.get('/type_exercises/index')
+            .then(response => {
+                console.log(response)
+                setTypeExercise(response.data);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
     // Tạo meal 
     function handleCreateExercise(e, Exercises) {
         e.preventDefault();
@@ -125,7 +166,6 @@ export default function AddExerciseOfCoach() {
             .then(response => {
                 getInformationExerciseForDate();
                 setModalVisible2(true)
-                console.log(response)
             })
             .catch(function (error) {
                 console.log(error);
@@ -133,6 +173,10 @@ export default function AddExerciseOfCoach() {
     }
     const findTypeExercise = (id) => {
         return getExercise.find(type => type.id === parseInt(id));
+    };
+    const findTypeExerciseName = (id) => {
+        const typeExercise = getTypeExercise.find(type => type.id === parseInt(id));
+        return typeExercise ? typeExercise.name : 'Unknown';
     };
     // Hiển thị dữ liệu thông tin chi tiết về meal 
     function renderInformationExerciseForDate() {
@@ -142,14 +186,14 @@ export default function AddExerciseOfCoach() {
         const exerciseData = slicedData.filter(item => item.id_exercises !== null);; // Lọc ra các dữ liệu có id_exercise là null
         return exerciseData.map((value, index) => {
             const exercise = findTypeExercise(value.id_exercises);
-            console.log(exercise)
             return (
                 <tr key={index}>
                     <td>{value.name}</td>
-                    <td>{exercise?.rep * value.weight|| ''}</td>
-                    <td>{exercise?.set * value.weight|| ''}</td>
-                    <td>{exercise?.time_minutes || ''}</td>
-                    <td>{exercise?.calo_kcal * value.weight || ''}</td>
+                    <td>{exercise?.rep * value.weight|| '0'}</td>
+                    <td>{exercise?.set * value.weight|| '0'}</td>
+                    <td>{exercise?.time_minutes || '0'}</td>
+                    <td>{exercise?.calo_kcal * value.weight || '0'}</td>
+                    <td>{100*value.weight}</td>
                     <td>{value.weight}</td>
                     <td className="overflow-text"><Link className="link" to={exercise?.url || ''}>{exercise?.url || ''}</Link></td>
                     <td>
@@ -476,11 +520,11 @@ export default function AddExerciseOfCoach() {
                                     <thead className="thead-light">
                                         <tr>
                                             <th scope="col">Product Name</th>
-
-                                            <th scope="col">Carb</th>
-                                            <th scope="col">Fiber</th>
-                                            <th scope="col">Protein</th>
+                                            <th scope="col">Rep</th>
+                                            <th scope="col">Set</th>
+                                            <th scope="col">Time_minutes</th>
                                             <th scope="col">Calo/Kcal</th>
+                                            <th scope="col">Weight</th>
                                             <th scope="col">Quantity</th>
                                             <th scope="col">Youtube</th>
                                             <th scope="col" />
@@ -489,7 +533,7 @@ export default function AddExerciseOfCoach() {
                                     <tbody>
                                         <tr>
                                             <td>
-                                                <select value={selectedExercise} onChange={e => setSelectedExercise(e.target.value)}>
+                                                <select value={selectedExercise} onChange={handleSelectChange}>
                                                     <option value="">Select Type</option>
                                                     {getExercise.map(type => (
                                                         <option key={type.id} value={type.id}>{type.name}</option>
@@ -513,10 +557,11 @@ export default function AddExerciseOfCoach() {
                                                     onChange={handleStartTimeChange} // Xử lý sự kiện thay đổi giá trị của input
                                                 />
                                             </td> */}
-                                            <td />
-                                            <td />
-                                            <td />
-                                            <td />
+                                            <td>{rep}</td>
+                                            <td>{set}</td>
+                                            <td>{time_minutes}</td>
+                                            <td>{calo_kcal}</td>
+                                            <td>{weight}</td>
                                             <td>
                                                 <input type="text" className="w-80" name="quantity" onChange={handleInput}
                                                     onKeyPress={(e) => {
@@ -527,7 +572,8 @@ export default function AddExerciseOfCoach() {
                                                         }
                                                     }} />
                                             </td>
-                                            <td />
+                                            
+                                            <td className="overflow-text"><Link className="link" to={youtube}>{youtube}</Link></td>
                                             <td>
                                                 <button onClick={(e) => handleCreateExercise(e, getExercise)} className="btn btn-add">
                                                     <i className="fa-solid fa-plus" /> Add

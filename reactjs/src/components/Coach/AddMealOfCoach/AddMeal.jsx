@@ -10,12 +10,13 @@ export default function AddMealOfCoach() {
     const [selectedTypeMeal, setSelectedTypeMeal] = useState('');
     const [mealName, setMealName] = useState('');
     const [getDataMealForDate, setDataMealForDate] = useState([]);
+    const [getTypeMeal, setTypeMeal] = useState('');
     const [getSearchMeal, setSearchMeal] = useState([]);
     const [isSearching, setIsSearching] = useState(false);
     const [inputs, setInputs] = useState({
         name: "",
         describe: "",
-        quantity:""
+        quantity: ""
     })
     const [isModalVisible, setModalVisible] = useState(false);
     const [isModalVisible2, setModalVisible2] = useState(false);
@@ -29,7 +30,12 @@ export default function AddMealOfCoach() {
     const coach = JSON.parse(localStorage.getItem("authcoach"));
     const token = coach?.data?.auth_token;
     const id_coach = coach?.data?.auth?.id;
-
+    const [carb, setCarb] = useState('');
+    const [fiber, setFiber] = useState('');
+    const [protein, setProtein] = useState('');
+    const [calo_kcal, setCaloKcal] = useState('');
+    const [name_type , setNameType] = useState('')
+    const [weight, setWeight] = useState("")
     const config = {
         headers: {
             'Authorization': `Bearer ${token}`,
@@ -39,11 +45,33 @@ export default function AddMealOfCoach() {
     // Tính toán totalPages
     const totalData = isSearching ? getSearchMeal.length : getDataMealForDate.length;
     const totalPages = Math.ceil(totalData / perPage);
-
+    const handleSelectChange = (e) => {
+        setSelectedTypeMeal(e.target.value);
+    }
     useEffect(() => {
+        if (selectedTypeMeal) {
+            const selectedMeal = getMeal.find(meal => meal.id === parseInt(selectedTypeMeal));
+            
+            if (selectedMeal) {
+                setCarb(selectedMeal.Carb);
+                setFiber(selectedMeal.Fiber);
+                setProtein(selectedMeal.Protein)
+                setCaloKcal(selectedMeal.Calo_kcal);
+                setWeight(100)
+                
+                // Cập nhật các thuộc tính khác tương tự ở đây
+            }
+        } else {
+            setCarb('');
+            setFiber('');
+            setProtein('');
+            setCaloKcal('');
+            // Đặt các thuộc tính khác về giá trị mặc định ở đây
+        }
         Meal();
         getInformationMealForDate();
-    }, []);
+        TypeMeal();
+    }, [selectedTypeMeal]);
 
     // Get thông tin meal 
     function getInformationMealForDate() {
@@ -74,7 +102,15 @@ export default function AddMealOfCoach() {
                 console.log(error);
             });
     }
-
+    function TypeMeal() {
+        axiosInstance.get('/type_meal/index')
+            .then(response => {
+                setTypeMeal(response.data);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
     // Handle input change
     const handleInput = (e) => {
         const { name, value } = e.target;
@@ -99,18 +135,18 @@ export default function AddMealOfCoach() {
         const selectedMealName = Meals.find(type => type.id === parseInt(selectedTypeMeal))?.Name;
 
         setMealName(selectedMealName);
-        
+
         if (!selectedMealName || inputs.quantity === "") {
             setModalVisible3(true)
             return; // Không làm gì nếu không có thời gian được chọn
         }
-        
+
         const quantity = parseInt(inputs.quantity);
         if (quantity < 1 || quantity > 10) {
             setModalVisible5(true); // Hiển thị modal thông báo trọng lượng không hợp lệ
             return;
         }
-        
+
         const data = {
             id_meals: selectedTypeMeal,
             name: selectedMealName,
@@ -131,9 +167,10 @@ export default function AddMealOfCoach() {
                 console.log(error);
             });
     }
-    const findTypeMeal = (id) => {
+    const findMeal = (id) => {
         return getMeal.find(type => type.id === parseInt(id));
     };
+    //  
     // Hiển thị dữ liệu thông tin chi tiết về meal 
     function renderInformationMealForDate() {
         const start = (page - 1) * perPage;
@@ -142,15 +179,17 @@ export default function AddMealOfCoach() {
         const mealData = slicedData.filter(item => item.id_meals !== null);
 
         return mealData.map((value, index) => {
-            const meal = findTypeMeal(value.id_meals);
+            const meal = findMeal(value.id_meals);
             return (
                 <tr key={index}>
                     <td>{value.name}</td>
-                    <td>{meal?.Carb * value.weight || ''}</td>
-                    <td>{meal?.Fiber * value.weight || ''}</td>
-                    <td>{meal?.Protein * value.weight || ''}</td>
-                    <td>{meal?.Calo_kcal * value.weight|| ''}</td>
+                    {/* <td>{findTypeMeal(value.id_meals)}</td> */}
+                    <td>{meal?.Carb * value.weight || '0'}</td>
+                    <td>{meal?.Fiber * value.weight || '0'}</td>
+                    <td>{meal?.Protein * value.weight || '0'}</td>
+                    <td>{meal?.Calo_kcal * value.weight || '0'}</td>
                     <td>{value.weight}</td>
+                    <td>{100 * value.weight}</td>
                     <td>
                         <a onClick={() => deleteMeal(value.id)}>
                             <i className="fa-solid fa-trash-can" />
@@ -469,20 +508,27 @@ export default function AddMealOfCoach() {
                                             <th scope="col">Protein</th>
                                             <th scope="col">Calo/Kcal</th>
                                             <th scope="col">Quantity</th>
+                                            <th scope="col">Weight</th>
                                             <th scope="col" />
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
                                             <td>
-                                                <select value={selectedTypeMeal} onChange={e => setSelectedTypeMeal(e.target.value)}>
+                                                {/* <select value={selectedTypeMeal} onChange={e => setSelectedTypeMeal(e.target.value)}>
+                                                    <option value="">Select Type</option>
+                                                    {getMeal.map(type => (
+                                                        <option key={type.id} value={type.id}>{type.Name}</option>
+                                                    ))}
+                                                </select> */}
+                                                <select value={selectedTypeMeal} onChange={handleSelectChange}>
                                                     <option value="">Select Type</option>
                                                     {getMeal.map(type => (
                                                         <option key={type.id} value={type.id}>{type.Name}</option>
                                                     ))}
                                                 </select>
                                             </td>
-
+                                            
                                             {/* <td>
                                                 <input
                                                     id="time_start"
@@ -500,10 +546,10 @@ export default function AddMealOfCoach() {
                                                     onChange={handleStartTimeChange} // Xử lý sự kiện thay đổi giá trị của input
                                                 />
                                             </td> */}
-                                            <td />
-                                            <td />
-                                            <td />
-                                            <td />
+                                            <td>{carb}</td>
+                                            <td>{fiber}</td>
+                                            <td>{protein}</td>
+                                            <td>{calo_kcal}</td>
                                             <td>
                                                 <input type="text" className="w-80" name="quantity" onChange={handleInput}
                                                     onKeyPress={(e) => {
@@ -514,6 +560,7 @@ export default function AddMealOfCoach() {
                                                         }
                                                     }} />
                                             </td>
+                                            <td>{weight}</td>
                                             <td>
                                                 <button onClick={(e) => handleCreateMeal(e, getMeal)} className="btn btn-add">
                                                     <i className="fa-solid fa-plus" /> Add

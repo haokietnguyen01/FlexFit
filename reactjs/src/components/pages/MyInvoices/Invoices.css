@@ -1,5 +1,5 @@
 .invoice-box {
-    max-width: 800px;
+    max-width: 550px;
     margin: 30px auto;
     padding: 30px;
     border: 1px solid #eee;
@@ -61,4 +61,14 @@
 .invoice-box table tr.total td:nth-child(2) {
     border-top: 2px solid #eee;
     font-weight: bold;
+}
+.btn-back{
+    width:150px!important;
+    background-color:#F53855;
+    color:white;
+}
+.btn-back:hover{
+    border:1px solid #F53855;
+    background-color:tranparent;
+    color:#F53855;
 }

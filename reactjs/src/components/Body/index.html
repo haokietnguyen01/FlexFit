@@ -1,4 +1,4 @@
-<!doctype html>
+//<!doctype html>
 <html lang="en">
 
 <head>
@@ -210,7 +210,7 @@
 </head>
 
 <body>
-    <div id="info"><a href="home.html" className="header-logo-title"><img class="logo" src="http://localhost/BE/public/images/Image8.jpg" alt="" /></a><p>BodyVisualiser for FlexFit</p></div>
+    <div id="info"><a href="home.html" className="header-logo-title"><img class="logo" src="http://localhost:8080/BE/public/images/Image8.jpg" alt="" /></a><p>BodyVisualiser for FlexFit</p></div>
 
     <!-- <div id="info"><a href="female.html">Switch to female body.</a></div> -->
     <div class="mbt-5">
@@ -403,12 +403,12 @@
                 var age = ageInput.value;
                 var weightInput = document.querySelector('input[name="weight"]');
                 var weight = weightInput.value;
-                if (age < 10 || age > 45) {
-                    showAlert("Age must be between 1 and 45.");
+                if (age < 10 || age > 70) {
+                    showAlert("Age must be between 10 and 70.");
                     return false; // Ngăn chặn việc gửi dữ liệu nếu có lỗi
                 }
                 if (weight < 42 || weight > 164) {
-                    showAlert("Weight must be between 30 and 150.");
+                    showAlert("Weight must be between 42 and 164.");
                     return false; // Ngăn chặn việc gửi dữ liệu nếu có lỗi
                 }
                 if (age === "" || weight === "") {
@@ -594,7 +594,7 @@
                 'wrist': data_body.Wrist,
             };
             
-            fetch('http://localhost/BE/public/api/saveBody', {
+            fetch('http://127.0.0.1:8000/api/saveBody', {
                 method: 'POST',
                 mode: "cors",
                 headers: {
@@ -625,3 +625,4 @@
     </script>
 
 </body>
+

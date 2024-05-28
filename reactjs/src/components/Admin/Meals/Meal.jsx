@@ -73,18 +73,19 @@ export default function Meal() {
     // Tạo meal 
     function handleCreateMeal(e, typeMeals) {
         e.preventDefault();
-        const selectedTypeMealName = typeMeals.find(type => type.id === parseInt(selectedTypeMeal))?.name;
+        const selectedTypeMealName = typeMeals.find(type => type.id === parseInt(selectedTypeMeal))?.nameType;
 
         setMealName(selectedTypeMealName);
+        console.log(selectedTypeMealName)
         if (inputs.product_name === "" || inputs.carb === "" || inputs.fiber === "" || inputs.protein === "" || inputs.calo_kcal === "" || !selectedTypeMealName) {
             setModalVisible3(true);
             return; // Không làm gì nếu không có thời gian được chọn
         }
         if (
-            parseInt(inputs.carb) < 1 || parseInt(inputs.carb) > 100 ||
-            parseInt(inputs.fiber) < 1 || parseInt(inputs.fiber) > 100 ||
-            parseInt(inputs.calo_kcal) < 1 || parseInt(inputs.calo_kcal) > 100 ||
-            parseInt(inputs.protein) < 1 || parseInt(inputs.protein) > 100
+            parseInt(inputs.carb) < 0 || parseInt(inputs.carb) > 100 ||
+            parseInt(inputs.fiber) < 0 || parseInt(inputs.fiber) > 100 ||
+            parseInt(inputs.calo_kcal) < 0 || parseInt(inputs.calo_kcal) > 1000 ||
+            parseInt(inputs.protein) < 0 || parseInt(inputs.protein) > 100
         ) {
             setModalVisible5(true);
             return; // Stop the execution if validation fails
@@ -116,7 +117,7 @@ export default function Meal() {
         }
         console.log(data )
         if (flag) {
-            axios.post("http://localhost/BE/public/api/type_meal/create",data)
+            axiosInstance.post("/type_meal/create",data)
                 .then(response => {
                     console.log(response)
                     TypeMeal();
@@ -128,7 +129,7 @@ export default function Meal() {
     }
     const findTypeMealName = (id) => {
         const typeMeal = getTypeMeal.find(type => type.id === parseInt(id));
-        return typeMeal ? typeMeal.name : 'Unknown';
+        return typeMeal ? typeMeal.nameType : 'Unknown';
     };
 
     // Hiển thị dữ liệu thông tin chi tiết về meal 
@@ -423,7 +424,7 @@ export default function Meal() {
                                 </div>
                                 {/* Modal body */}
                                 <div className="modal-body mb-3">
-                                    Input Fields (fiber,protein,carb,calo_kcal) can only be entered greater than 1 and less than 100)
+                                    Input Fields (fiber,protein,carb,calo_kcal) can only be entered greater than 0 and less than 100)
                                 </div>
                                 {/* Modal footer */}
                                 <div className="modal-footer">
@@ -583,4 +584,5 @@ export default function Meal() {
 
         </div>
     );
+
 }

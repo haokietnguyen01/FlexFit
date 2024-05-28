@@ -73,7 +73,7 @@ class PaypalController extends Controller
                 $data["link"] =  env('APP_URL') . "/history";
                 // SendMailJob::dispatch($user->email, 'Thank you for booking our soccer field. This is your order confirmation message.', $data, 'mail.mail_payment');
                 // $redirect = env('APP_CLIENT_URL') . "/payment-success";
-                $redirect = "http://localhost:3000?status=success";
+                $redirect = "http://localhost:3000/user/myInvoice?status=success";
                 return redirect($redirect);
             }
         }

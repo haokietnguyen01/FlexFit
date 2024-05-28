@@ -26,8 +26,11 @@ export default function Payment() {
     function getInformationPayment() {
         axiosInstance.get('/getListInvoices')
             .then(response => {
-                console.log(response.data)
-                setDataPayment(response.data.invoices)
+                if(response.data.invoices){
+                    setDataPayment(response.data.invoices)  
+                }else{
+                    setDataPayment([])
+                }
             })
             .catch(function (error) {
                 console.log(error)
@@ -38,26 +41,29 @@ export default function Payment() {
         return new Date(dateString).toLocaleDateString(undefined, options);
     }
     function renderInformationPayment() {
-        const start = (page - 1) * perPage;
-        const end = start + perPage;
-        const slicedData = getDataPayment.slice(start, end);
-
-        return slicedData.map((value, index) => (
-            <tr key={index}>
-                <td>{value.id}</td>
-                <td>{value.total_money}</td>
-                <td>{value.id_user}</td>
-                <td>{value.name}</td>
-                <td>{value.phone}</td>
-                <td>{formatDate(value.created_at)}</td>
-                <td>{formatDate(value.updated_at)}</td>
-                <td className="green"><i className="fa-solid fa-check" /></td>
-                <td><i className="fa-solid fa-trash-can" /></td>
-                {/* <td>
-                    <a><i onClick={() => Delete(value.id)} className="fa-solid fa-trash-can" /></a>
-                </td> */}
-            </tr>
-        ));
+        if (!getDataPayment || getDataPayment.length === 0) {
+            return <tr><td colSpan="9">No payment data available.</td></tr>;
+        }else{
+            const start = (page - 1) * perPage;
+            const end = start + perPage;
+            const slicedData = getDataPayment.slice(start, end);
+            return slicedData.map((value, index) => (
+                <tr key={index}>
+                    <td>{value.id}</td>
+                    <td>{value.total_money}</td>
+                    <td>{value.id_user}</td>
+                    <td>{value.name}</td>
+                    <td>{value.phone}</td>
+                    <td>{formatDate(value.created_at)}</td>
+                    <td>{formatDate(value.updated_at)}</td>
+                    <td className="green"><i className="fa-solid fa-check" /></td>
+                    <td><i className="fa-solid fa-trash-can" /></td>
+                    {/* <td>
+                        <a><i onClick={() => Delete(value.id)} className="fa-solid fa-trash-can" /></a>
+                    </td> */}
+                </tr>
+            ));
+        }
     }
     const nextPage = () => {
         const totalData = isSearching ? getSearchPayment.length : getDataPayment.length;
@@ -150,4 +156,5 @@ export default function Payment() {
             </div>
         </div>
     )
+
 }

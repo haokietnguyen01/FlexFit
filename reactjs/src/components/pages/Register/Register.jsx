@@ -85,10 +85,10 @@ export default function Register() {
       axiosInstance.post("/register", data)
         .then(response => {
           console.log(response)
-          // setModalInfo({ isVisible: true, message: "Successfully Registered, Please Log In" });
-          // setTimeout(() => {
-          //   navigate('/user/public/login'); // Redirect to login page after successful registration
-          // }, 1500); // Delay to show the success message before redirecting
+          setModalInfo({ isVisible: true, message: "Successfully Registered, Please Log In" });
+          setTimeout(() => {
+            navigate('/user/public/login'); // Redirect to login page after successful registration
+          }, 1500); // Delay to show the success message before redirecting
         })
         .catch(error => {
           setModalInfo({ isVisible: true, message: "Email already exists" });
@@ -101,7 +101,7 @@ export default function Register() {
       <div className="container">
         <div className="row">
           <div className="col-sm-12 mt-2 d-flex justify-content-center regitser_logo align-items-center">
-            <img src="http://localhost/BE/public/images/Image8.jpg" alt="8888" />
+            <img src="http://localhost:8080/BE/public/images/Image8.jpg" alt="8888" />
             <p className="register_logo_name mbt-0">FlexFit</p>
           </div>
           <div className="col-sm-12 center">

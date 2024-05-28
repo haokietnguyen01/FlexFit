@@ -132,6 +132,8 @@ export default function ScheduleMeal() {
     const [inputs, setInput] = useState({
         comment: "",
     })
+    const [isModalVisible, setModalVisible] = useState(false);
+    
     const config = {
         headers: {
             'Authorization': `Bearer ${token}`,
@@ -161,10 +163,10 @@ export default function ScheduleMeal() {
         }, 300000); // Kiểm tra 5 phút/lần
         return () => clearInterval(interval); // Xóa interval khi component unmount
     }, [getDataMealForDate, submittedMeals]);
-    const handleInput = (e) => {
+    const handleInput = (e ,mealId) => {
         const nameInput = e.target.name;
         const value = e.target.value;
-        setInput(state => ({ ...state, [nameInput]: value }))
+        setInput(prevInputs => ({ ...prevInputs, [mealId]: { ...prevInputs[mealId], [nameInput]: value } }));
     }
     const getInformationMealForDate = () => {
         axiosInstance.get('/schedules/date', {
@@ -201,19 +203,23 @@ export default function ScheduleMeal() {
     //         console.error(error);
     //     });
     // };
+    const isCommentEmpty = (comment) => {
+        return comment === "" || comment === null;
+    };
     function submitMeal(id) {
         console.log(id)
-        // Hiển thị modal
+
         const data = {
             status: true,
-            describe: inputs.comment
+            describe: inputs[id] ? inputs[id].comment : ""
         }
         console.log(data)
         // setModalVisible(false)
         axiosInstance.post(`/schedule/${id}`, data, config)
             .then(response => {
                 console.log(response)
-                // setSubmittedExercises(prev => new Set([...prev, exerciseId])); // Mark as submitted
+                setModalVisible(true)
+                setSubmittedMeals(prev => new Set([...prev, id])); // Mark as submitted
             })
             .catch(error => {
                 console.error(error);
@@ -228,10 +234,17 @@ export default function ScheduleMeal() {
                     <p>{value.name}</p>
                 </div>
                 <div className="col-sm-3 center">
-                    <p>{value.weight}</p>
+                    <p>{100*value.weight} gram</p>
                 </div>
                 <div className="col-sm-3 center">
-                    <input className="mb-3 input-comment-meal" type="text" name="comment" placeholder="Your comment" onChange={handleInput} />
+                <input
+                    className="mb-3 input-comment-meal"
+                    type="text"
+                    name="comment"
+                    placeholder="Your comment"
+                    value={inputs[value.id] ? inputs[value.id].comment || "" : ""}
+                    onChange={(e) => handleInput(e, value.id)}
+                />
                 </div>
                 <div className="col-sm-3 center">
                     {/* <button
@@ -241,12 +254,49 @@ export default function ScheduleMeal() {
                     >
                         {submittedMeals.has(value.id_meals) ? "Submitted" : "Submit"}
                     </button> */}
-                    <button className="btn btn-submit" onClick={() => submitMeal(value.id)}>Submit</button>
+                    <button className="btn btn-submit" onClick={() => submitMeal(value.id)} disabled={!isCommentEmpty(value.describe)}>Submit</button>
                 </div>
             </div>
         ));
     };
-
+    function renderModal() {
+        return (
+            <div>
+                {/* Your existing code */}
+                {isModalVisible && (
+                    <div className="modal modal-notification mb-4" id="myModal" style={{ display: isModalVisible ? 'block' : 'none' }}>
+                        <div className="modal-dialog">
+                            <div className="modal-content modal-createPost">
+                                {/* Modal Header */}
+                                <div className="modal-header mb-2">
+                                    <h4 className="modal-title white">
+                                        Notification
+                                    </h4>
+                                </div>
+                                {/* Modal body */}
+                                <div className="modal-body mb-2">
+                                    Submitted Successfully
+                                </div>
+                                {/* Modal footer */}
+                                <div className="modal-footer">
+                                    <button
+                                        type="button"
+                                        className="btn"
+                                        data-bs-dismiss="modal"
+                                        onClick={() => {
+                                            setModalVisible(false);
+                                        }}
+                                    >
+                                        Close
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                )}
+            </div>
+        );
+    }
     return (
         <div id="ScheduleMeal">
             <div className="container">
@@ -284,7 +334,9 @@ export default function ScheduleMeal() {
                         </div>
                     </div>
                 </div>
+                {renderModal()}
             </div>
         </div>
     );
+
 }

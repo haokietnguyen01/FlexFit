@@ -69,7 +69,7 @@ export default function Approve() {
                 <td>{value.phone}</td>
                 <td>
                     {value.image ? (
-                        <img src={`http://localhost/BE/public/${value.image}`} width="30px" height="30px" onClick={() => openImageModal(value.image)} style={{ cursor: 'pointer' }}></img>
+                        <img src={`http://localhost:8080/BE/public${value.image}`} width="30px" height="30px" onClick={() => openImageModal(value.image)} style={{ cursor: 'pointer' }}></img>
                     ) : (
                         ""
                     )}
@@ -127,14 +127,14 @@ export default function Approve() {
                         <td>{value.phone}</td>
                         <td>
                             {value.image ? (
-                                <img src={`http://localhost/BE/public/${value.image}`} width="30px" height="30px" onClick={() => openImageModal(value.image)} style={{ cursor: 'pointer' }}></img>
+                                <img src={`http://localhost:8080/BE/public${value.image}`} width="30px" height="30px" onClick={() => openImageModal(value.image)} style={{ cursor: 'pointer' }}></img>
                             ) : (
                                 ""
                             )}
                         </td>
                         <td>
                             {value.degree_image ? (
-                                <img src={`http://localhost/BE/public/${value.degree_image}`} width="30px" height="30px" onClick={() => openImageModal(value.degree_image)} style={{ cursor: 'pointer' }}></img>
+                                <img src={`http://localhost:8080/BE/public${value.degree_image}`} width="30px" height="30px" onClick={() => openImageModal(value.degree_image)} style={{ cursor: 'pointer' }}></img>
                             ) : (
                                 ""
                             )}
@@ -263,7 +263,7 @@ export default function Approve() {
             </div>
             {currentImage && (
                 <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(0,0,0,0.5)', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                    <img src={`http://localhost/BE/public/${currentImage}`} style={{ maxWidth: '90%', maxHeight: '90%' }} />
+                    <img src={`http://localhost:8080/BE/public${currentImage}`} style={{ maxWidth: '90%', maxHeight: '90%' }} />
                     <button className="btn btn-exit" onClick={closeImageModal} style={{ position: 'absolute', top: 20, right: 20, fontSize: '25px', color: 'white' }}>×</button>
                 </div>
             )}

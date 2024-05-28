@@ -234,7 +234,7 @@ export default function Login() {
                     <div className="col-sm-5  padding-login">
                         <div className="row">
                             <div className="col-sm-12 mt-3 d-flex justify-content-center login_logo align-items-center">
-                                <img src="http://localhost/BE/public/images/Image8.jpg" alt="8888" />
+                                <img src="http://localhost:8080/BE/public/images/Image8.jpg" alt="8888" />
                                 <p className="login_logo_name mbt-0">FlexFit</p>
                             </div>
 
@@ -266,7 +266,7 @@ export default function Login() {
                     </div>
                     <div className="col-sm-6 login_ml">
                         <div className="login_image">
-                            <img src="http://localhost/BE/public/images/Image7.jpg" alt={8888} className="hover-effect" />
+                            <img src="http://localhost:8080/BE/public/images/Image7.jpg" alt={8888} className="hover-effect" />
                         </div>
                     </div>
                     <div>

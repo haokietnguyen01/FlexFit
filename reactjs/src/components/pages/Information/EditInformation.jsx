@@ -32,7 +32,7 @@ export default function EditInformation() {
     sex: "",
   })
   const [selectedImage, setSelectedImage] = useState();
-  const [imagePreviewUrl, setImagePreviewUrl] = useState('http://localhost/BE/public/images/Image14.png'); // Lưu trữ URL để hiển thị ảnh
+  const [imagePreviewUrl, setImagePreviewUrl] = useState('http://localhost:8080/BE/public/images/Image14.png'); // Lưu trữ URL để hiển thị ảnh
   const [isModalVisible, setModalVisible] = useState(false);
   const [getImageDegreeCoach, setImageDegreeCoach] = useState('');
   const [isModalVisible1, setModalVisible1] = useState(false);
@@ -66,7 +66,7 @@ export default function EditInformation() {
           setStatus(response.data.customer.status)
           var userImage = response.data.customer.image;
           console.log(response.data.customer.image)
-          const imageUrl = `http://localhost/BE/public/${userImage}`
+          const imageUrl = `http://localhost:8080/BE/public${userImage}`
 
           const fullName = response.data.customer.name;
           const nameParts = fullName.split(' ');
@@ -97,7 +97,7 @@ export default function EditInformation() {
           const firstName = nameParts.join(' ');
           const coachImage = response.data.coach.image;
           // Kiểm tra nếu ảnh là null hoặc undefined hoặc chuỗi rỗng
-          const imageUrl = coachImage ? `http://localhost/BE/public/${coachImage}` : "http://localhost/BE/public/images/Image14.png";
+          const imageUrl = coachImage ? `http://localhost:8080/BE/public${coachImage}` : "http://localhost:8080/BE/public/images/Image14.png";
           setInput({
             firstName: firstName,
             lastName: lastName,
@@ -227,7 +227,7 @@ export default function EditInformation() {
                       className="row form-becomeCoach">
                       <div className="padding center">
                         <div className="img-request center mb-4 mt-3">
-                          <img src="http://localhost/BE/public/images/Image15.png" alt="" />
+                          <img src="http://localhost:8080/BE/public/images/Image15.png" alt="" />
                         </div>
                         <div className="title">
                           {fileDegree ? <p>{fileDegree}</p> : <p>Select a file or drag and drop here</p>}
@@ -295,7 +295,7 @@ export default function EditInformation() {
       return (
         <div className="flex degree-img">
           <p className="font-weight ">Degree</p>
-          <img className="ms-5" src={`http://localhost/BE/public/${getImageDegreeCoach}`} alt="" />
+          <img className="ms-5" src={`http://localhost:8080/BE/public${getImageDegreeCoach}`} alt="" />
         </div>
       )
     }

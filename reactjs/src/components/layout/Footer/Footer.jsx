@@ -7,7 +7,7 @@ export default function Footer() {
                 <div className="row">
                     <div className="col-sm-5 mt-5 mb-4">
                         <div className="footer_title ta-end">
-                            <a href="home.html" className="footer-logo-title"><img src="http://localhost/BE/public/images/Image8.jpg" alt={8888} /><span className="font-weight">FlexFit</span></a>
+                            <a href="home.html" className="footer-logo-title"><img src="http://localhost:8080/BE/public/images/Image8.jpg" alt={8888} /><span className="font-weight">FlexFit</span></a>
                         </div>
                     </div>
                     <div className="col-sm-6 footer_description mt-5 mb-4">

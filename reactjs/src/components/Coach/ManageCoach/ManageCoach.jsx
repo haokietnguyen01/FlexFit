@@ -35,7 +35,7 @@ export default function ManageForCoach() {
                 <div className="col-sm-8">
                     <div className="row ManageCoach_detail mb-3">
                         <div className="col-sm-3 img-flex">
-                            <img src="http://localhost/BE/public/images/Image10.png" alt={8888} />
+                            <img src="http://localhost:8080/BE/public/images/Image10.png" alt={8888} />
                         </div>
                         <div className="col-sm-9 ManageCoach_padding">
                             <p className="ManageCoach_name mb-3 mt-4">{value.name}</p>

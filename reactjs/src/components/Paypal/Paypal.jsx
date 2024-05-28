@@ -1,5 +1,6 @@
 import "./Paypal.css";
 import axios from "axios";
+import axiosInstance from "../Axios/axios";
 
 export default function Paypal() {
   var customer = localStorage.getItem("authcustomer")
@@ -19,7 +20,7 @@ export default function Paypal() {
     const data = {
       price: price
     };
-    axios.post("http://localhost/BE/public/api/process-paypal", data, config)
+    axiosInstance.post("/process-paypal", data, config)
       .then(response => {
         window.location.href = response.data.link;
       })
@@ -39,7 +40,7 @@ export default function Paypal() {
             <div className="flex">
               <div className="border width background-white" id="container">
                 <div className="pay_one_month center">
-                  <img src="http://localhost/BE/public/images/image3.jpg" alt="1 month package" />
+                  <img src="http://localhost:8080/BE/public/images/image3.jpg" alt="1 month package" />
                 </div>
                 <div className="pay_detail">
                   <p><i className="fa-solid fa-check" /><span>Hire a tour guide for 1 month</span></p>
@@ -54,7 +55,7 @@ export default function Paypal() {
               </div>
               <div className="border width background-white" id="container1">
                 <div className="pay_three_month center ">
-                  <img src="http://localhost/BE/public/images/image3.jpg" alt="3 month package" />
+                  <img src="http://localhost:8080/BE/public/images/image3.jpg" alt="3 month package" />
                 </div>
                 <div className="pay_detail">
                   <p><i className="fa-solid fa-check" /><span>Hire a tour guide for 1 month</span></p>
@@ -69,7 +70,7 @@ export default function Paypal() {
               </div>
               <div className="border width background-white" id="container2">
                 <div className="pay_six_month center">
-                  <img src="http://localhost/BE/public/images/image3.jpg" alt="6 month package" />
+                  <img src="http://localhost:8080/BE/public/images/image3.jpg" alt="6 month package" />
                 </div>
                 <div className="pay_detail">
                   <p><i className="fa-solid fa-check" /><span>Hire a tour guide for 1 month</span></p>

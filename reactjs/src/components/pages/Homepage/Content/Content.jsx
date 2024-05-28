@@ -6,7 +6,7 @@ export default function Content() {
                 <div className="row">
                     <div className="col-sm-6">
                         <div className="content_img">
-                            <img src="http://localhost/BE/public/images/Image2.jpg" alt={8888} />
+                            <img src="http://localhost:8080/BE/public/images/Image2.jpg" alt={8888} />
                         </div>
                     </div>
                     <div className="col-sm-6 padding">

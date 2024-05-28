@@ -42,6 +42,7 @@ export default function Header() {
     function name() {
         axiosInstance.get(`/get-data-user`, config)
             .then((response) => {
+                console.log(response)
                 if(response.data.customer){
                     
                     setAvatar(response.data.customer.image)
@@ -193,7 +194,7 @@ export default function Header() {
                         </ul>
                     </div>
                     <div className="dropdown user">
-                    <img src={getAvatar !== null ? `http://localhost/BE/public/${getAvatar}` : "http://localhost/BE/public/images/Image14.png"} alt="Avatar" data-bs-toggle="dropdown" />
+                    <img src={getAvatar !== null ? `http://localhost:8080/BE/public${getAvatar}` : "http://localhost:8080/BE/public/images/Image14.png"} alt="Avatar" data-bs-toggle="dropdown" />
                         <ul className="dropdown-menu">
                             <li><Link to="/user/edit_information" className="dropdown-item"><i class="fa-solid fa-user"></i>Information</Link></li>
                             <li><Link to="/user/mycoach" className="dropdown-item"><i class="fa-solid fa-calendar-days"></i>Schedule</Link></li>
@@ -211,7 +212,7 @@ export default function Header() {
                 <div className="flex justify-content-center">
                     {notification()}
                     <div className="dropdown user">
-                        <img src="http://localhost/BE/public/images/Image14.png" alt="8888" data-bs-toggle="dropdown" />
+                        <img src="http://localhost:8080/BE/public/images/Image14.png" alt="8888" data-bs-toggle="dropdown" />
                         <ul className="dropdown-menu">
                             <li><Link to="/user/edit_information" className="dropdown-item"><i class="fa-solid fa-user"></i>Information</Link></li>
                             <li><Link to="/coach/manageCoach" className="dropdown-item"><i class="fa-solid fa-users-rectangle"></i>ManageCoach</Link></li>
@@ -286,7 +287,7 @@ export default function Header() {
                 <div className="row">
                     <div className="col-sm-2">
                         <div className="header-logo">
-                            <Link to="/" className="header-logo-title"><img src="http://localhost/BE/public/images/Image8.jpg" alt="" /><span className="font-weight">FlexFit</span></Link>
+                            <Link to="/" className="header-logo-title"><img src="http://localhost:8080/BE/public/images/Image8.jpg" alt="" /><span className="font-weight">FlexFit</span></Link>
                         </div>
                     </div>
                     <div className="col-sm-6">

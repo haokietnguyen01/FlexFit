@@ -20,7 +20,7 @@ export default function Slider() {
                     </div>
                     <div className="col-sm-7 center">
                         <div className>
-                            <img src="http://localhost/BE/public/images/Image1.jpg" alt={8888} className="img-slider" />
+                            <img src="http://localhost:8080/BE/public/images/Image1.jpg" alt={8888} className="img-slider" />
                         </div>
                     </div>
                 </div>
