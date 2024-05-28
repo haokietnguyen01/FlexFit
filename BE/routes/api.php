@@ -60,7 +60,7 @@ Route::middleware('auth:api')->group(function () {
 
     Route::post('/saveBody', [\App\Http\Controllers\User\UserController::class, 'saveBody']); 
     
-    Route::get('/getHistory', [\App\Http\Controllers\User\UserController::class, 'getHistory']); 
+    Route::get('/getHistory/{id}', [\App\Http\Controllers\User\UserController::class, 'getHistory']); 
 
     Route::get('/getBody', [\App\Http\Controllers\Coach\CoachController::class, 'getBody']); //done
 
@@ -69,8 +69,18 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/getBodyCustomer', [\App\Http\Controllers\User\UserController::class, 'getBodyCustomer']);
 
     Route::get('/getMyCoach', [\App\Http\Controllers\User\UserController::class, 'getMyCoach']);
+
     
+    Route::post('/schedule/create',[ScheduleController::class, 'create']);
+    Route::get('/schedule/delete/{id}',[ScheduleController::class, 'delete']);
+    // Route::get('/schedule/get-data',[ScheduleController::class, 'getDataById']);
+    Route::post('/schedule/{id}', [ScheduleController::class, 'update']);
+    Route::get('/schedules/date', [ScheduleController::class, 'getScheduleInDate']);
+
+    //invoices
+    Route::get('/getInvoices', [\App\Http\Controllers\User\UserController::class, 'getInvoices']); 
 });
+Route::get('/getListInvoices', [\App\Http\Controllers\Admin\AdminController::class, 'getListInvoices']); 
 Route::get('/getDataCustomer', [\App\Http\Controllers\Admin\AdminController::class, 'getDataCustomer']);
 Route::get('/getDataCoach', [\App\Http\Controllers\Admin\AdminController::class, 'getDataCoach']);
 Route::post('/destroy/{id}', [\App\Http\Controllers\Admin\AdminController::class, 'destroy']);
@@ -106,13 +116,7 @@ Route::post('/process-paypal', [\App\Http\Controllers\User\PayPalController::cla
 Route::get('/process-success', [\App\Http\Controllers\User\PayPalController::class, 'success'])->name('success');
 Route::get('/process-cancel', [\App\Http\Controllers\User\PayPalController::class, 'cancel'])->name('cancel');
 
-//Schedule
-Route::post('/schedule/create',[ScheduleController::class, 'create']);
-Route::get('/schedule/delete/{id}',[ScheduleController::class, 'delete']);
-Route::get('/schedule/get-data/{id}',[ScheduleController::class, 'getDataById']);
-Route::post('/schedule/{id}', [ScheduleController::class, 'update']);
-Route::get('/schedules/date', [ScheduleController::class, 'getScheduleInDate']);
-Route::get('/schedules/month', [ScheduleController::class, 'getScheduleInMonth']);
+// Route::get('/schedules/month', [ScheduleController::class, 'getScheduleInMonth']);
 // Route::get('/schedule/{id}',[ScheduleController::class, 'getSheduleDetail']);
 // Route::group([
 //     'middleware' => 'api',

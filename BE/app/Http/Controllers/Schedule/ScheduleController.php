@@ -6,22 +6,19 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Schedules;
 use App\Models\User;
-use App\Models\intermediate;
-use Carbon\Carbon;
+// use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 class ScheduleController extends Controller
 {
     public function create(Request $request)
     {
-        $rules=[
+        $request->validate([
+            'id_owner' => 'required',
             'name' => 'required',
             'date' => 'required|date',
-            'time_start' => 'required|date_format:H:i',
-            'time_end' => 'required|date_format:H:i',
-            'describe' => 'required',
-        ];
-        $request->validate($rules);
+            'weight' => 'required',
+        ]);
         $owner = Auth::user();
         // dd($owner->id);
         $data = $request->all();
@@ -29,11 +26,10 @@ class ScheduleController extends Controller
         $date = new \DateTime($data['date']);
         $data['date'] = $date->format('Y-m-d');
         $data['status'] = 'Waiting';
-        
         // Xử lý định dạng giờ sử dụng Carbon
-        $timezone = 'Asia/Ho_Chi_Minh';
-        $data['time_start'] = Carbon::createFromFormat('H:i', $data['time_start'], $timezone)->format('H:i:s');
-        $data['time_end'] = Carbon::createFromFormat('H:i', $data['time_end'], $timezone)->format('H:i:s');
+        // $timezone = 'Asia/Ho_Chi_Minh';
+        // $data['time_start'] = Carbon::createFromFormat('H:i', $data['time_start'], $timezone)->format('H:i:s');
+        // $data['time_end'] = Carbon::createFromFormat('H:i', $data['time_end'], $timezone)->format('H:i:s');
 
         $schedule = Schedules::create($data);
         return response()->json([
@@ -41,7 +37,6 @@ class ScheduleController extends Controller
             'schedule' => $schedule
         ], 200);
     }
-    
     public function delete($id)
     {
         $owner = Auth::user();
@@ -80,32 +75,39 @@ class ScheduleController extends Controller
         $user = Auth::user();
         $data = $request->all();
         $schedule = Schedules::find($id);
-        $schedule->status = $data['status'];
-        $schedule->describe = $data['describe'];
+
         if (!$schedule) {
             return response()->json(['error' => 'Schedule not found '], 404);
         }
+        $schedule->status = $data['status'];
+        $schedule->describe = $data['describe'];
         $schedule->update();
 
         return response()->json(['message' => 'Schedule updated successfully', 'schedule' => $schedule]);
     }
     public function getScheduleInDate(Request $request)
     {
-        $request->validate([
-            'date' => 'required|date',
-        ]);
         $auth = Auth::user();
         // dd($auth);
         if($auth->role_id == 2){
+            $request->validate([
+                'date' => 'required|date',
+                'id_user' =>'required'
+            ]);
             $dateRequest = new \DateTime($request->date); 
             $date = $dateRequest->format('Y-m-d');
             
             $schedules = Schedules::where('date', $date)
                           ->where('id_owner', $auth->id)
+                          ->where('id_user', $request->id_user)
                           ->get();
             // dd($schedules);
             return response()->json(['schedules' => $schedules]);
         }else if($auth->role_id == 1){
+            $request->validate([
+                'date' => 'required|date',
+                'id_coach' =>'required'
+            ]);
             $dateRequest = new \DateTime($request->date); 
             $date = $dateRequest->format('Y-m-d');
             
@@ -121,4 +123,28 @@ class ScheduleController extends Controller
         }
         
     }
+    // public function getSheduleDetail($id){
+    //     $schedule = Schedules::find($id);
+    //     return response()->json(['message' => 'Get schedule detail updated successfully', 'schedule' => $schedule]);
+    // }
+    // public function getScheduleInMonth(Request $request)
+    // {
+        
+    //     $request->validate([
+    //         'year' => 'required|integer',
+    //         'month' => 'required|integer|between:1,12',
+    //     ]);
+
+    //     $year = $request->input('year');
+    //     $month = $request->input('month');
+
+    //     // Tạo một đối tượng Carbon từ năm và tháng
+    //     $startDate = Carbon::create($year, $month, 1)->startOfMonth();
+    //     $endDate = Carbon::create($year, $month, 1)->endOfMonth();
+
+    //     // Lấy danh sách các lịch trình trong tháng
+    //     $schedules = Schedules::whereBetween('date', [$startDate, $endDate])->get();
+
+    //     return response()->json(['schedules' => $schedules]);
+    // }
 }

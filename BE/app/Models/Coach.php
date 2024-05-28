@@ -22,7 +22,7 @@ class Coach extends Model
         'role_id',
         'id_schedule',
         'id_course',
-        'id_history'
-
+        'id_history',
+        'address'
     ];
 }

@@ -17,7 +17,7 @@ class UserController extends Controller
     public function getCoach() {
         // $user = auth()->user();
         // dd($user->id);
-        $coach = Coach::select('id', 'name', 'DOB', 'phone', 'sex', 'degree')->get();
+        $coach = Coach::all();
         return response()->json([
             'data' => $coach,
         ], 200);
@@ -134,14 +134,31 @@ class UserController extends Controller
         return response()->json(['customer'=>$customer]);
     }
 
-    public function getHistory() {
+    public function getHistory($id) {
         $user = auth()->user();
-        $body = history::where('id_user', $user->id)->get();
+        $body = history::where('id_user', $id)->get();
         return response()->json([
             'Message' => "Get data successfully",
             'data' => $body,
         ], 200);
     }
 
-    
+    public function getInvoices() {
+        $user = Auth::user();
+        $invoices = intermediate::join('invoices', 'intermediate.id_payment', 'invoices.id')
+        ->join('customer', 'intermediate.id_user', 'customer.id_user')
+        ->select('intermediate.id', 'customer.name', 'customer.phone', 'customer.sex', 'customer.id_user', 
+                'invoices.id_invoice', 'invoices.total_money','invoices.created_at','invoices.updated_at')
+        ->where("invoices.user_id",$user->id)
+        ->get();
+        if($invoices != "[]") {
+            return response()->json([
+                'invoices' => $invoices
+            ]);
+        }
+        return response()->json([
+            'messages' => "No data to display"
+        ]);
+    }
 }
+

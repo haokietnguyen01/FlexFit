@@ -10,7 +10,7 @@ use App\Models\Coach;
 use App\Models\User;
 use App\Models\Customer;
 // use App\Models\Degree;
-
+use Illuminate\Support\Facades\DB;
 class DegreeController extends Controller
 {
     public function index()
@@ -86,7 +86,7 @@ class DegreeController extends Controller
         // Thêm dữ liệu từ bảng User vào bảng Coach
         $coach = new Coach;
         $coach->id_user = $request->id_user;
-        $coach->name = $customer->name; 
+        $coach->name = $customer->name; // hoặc các trường khác mà bạn muốn chuyển
         $coach->DOB = $customer->DOB;
         $coach->phone = $customer->phone;
         $coach->sex = $customer->sex;

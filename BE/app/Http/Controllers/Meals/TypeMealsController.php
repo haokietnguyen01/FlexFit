@@ -17,7 +17,7 @@ class TypeMealsController extends Controller
     public function create(Request $request)
     {
         $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
+            'nameType' => 'required|string|max:255',
         ]);
 
         $type_meal = Type_Meal::create($validatedData);

@@ -16,6 +16,7 @@ class Exercises extends Model
         'rep',
         'time_minutes',
         'calo_kcal',
-        'id_type_ex'
+        'id_type_ex',
+        'url'
     ];
 }

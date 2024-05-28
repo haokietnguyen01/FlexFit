@@ -24,6 +24,9 @@ export default function Navbar() {
                     <div className="flex mb-4">
                         <Link to="/admin/payment"><i className="fa-regular fa-credit-card" />Payment</Link>
                     </div>
+                    <div className="flex mb-4">
+                        <Link to="/admin/approve"><i class="fa-solid fa-paper-plane"/>Approve</Link>
+                    </div>
                 </div>
             </div>
         </div>

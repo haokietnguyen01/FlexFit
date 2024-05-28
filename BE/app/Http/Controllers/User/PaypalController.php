@@ -8,18 +8,19 @@ use App\Models\User;
 use App\Models\intermediate;
 use App\Models\Invoice;
 use Srmklive\PayPal\Services\PayPal as PayPalClient;
-
+use Illuminate\Support\Facades\Auth;
 class PaypalController extends Controller
 {
     public function processPaypal(Request $request)
     {
+        $user = Auth::user();
         $provider = new PayPalClient;
         $provider->setApiCredentials(config('paypal'));
         $paypalToken = $provider->getAccessToken();
         $response = $provider->createOrder([
             "intent" => "CAPTURE",
             "application_context" => [
-                "return_url" => route('success', ['user_id' => $request->user_id, 'price' => $request->price]),
+                "return_url" => route('success', ['user_id' => $user->id, 'price' => $request->price]),
                 "cancel_url" => route('cancel'),
             ],
             "purchase_units" => [
@@ -71,7 +72,8 @@ class PaypalController extends Controller
                 $intermediate->save();
                 $data["link"] =  env('APP_URL') . "/history";
                 // SendMailJob::dispatch($user->email, 'Thank you for booking our soccer field. This is your order confirmation message.', $data, 'mail.mail_payment');
-                $redirect = env('APP_CLIENT_URL') . "/payment-success";
+                // $redirect = env('APP_CLIENT_URL') . "/payment-success";
+                $redirect = "http://localhost:3000?status=success";
                 return redirect($redirect);
             }
         }

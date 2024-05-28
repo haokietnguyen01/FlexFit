@@ -2,8 +2,7 @@ body {
 	color: #000;
 	font-family: Monospace;
 	font-size: 15px;
-	text-align: center;
-
+	text-align: center!important;
 	background-color: #fff;
 	margin: 0px;
 	overflow: hidden;

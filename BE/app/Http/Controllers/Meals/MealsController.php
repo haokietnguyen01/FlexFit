@@ -27,6 +27,43 @@ class MealsController extends Controller
      */
     public function create(Request $request)
     {
+        // $validator = Validator::make($request->all(), [
+        //     'name' => 'required|string|max:255', // Customize validation rules as needed
+        //     'carb' => 'required|numeric',
+        //     'fiber' => 'required|numeric',
+        //     'protein' => 'required|numeric',
+        //     'calo_kcal' => 'required|numeric',
+        //     'id_type_meal' => 'required|integer', // Adjust data type as required
+        // ]);
+    
+        // if ($validator->fails()) {
+        //     return Response::json([
+        //         'success' => false,
+        //         'message' => 'Lỗi xác thực dữ liệu: ' . $validator->errors()->first(), // Informative error message
+        //     ], 422); // Unprocessable Entity HTTP status code
+        // }
+    
+        // try {
+        //     $meal = Meals::create($request->all());
+    
+        //     return Response::json([
+        //         'success' => true,
+        //         'message' => 'Món ăn ' . $meal->name . ' đã được thêm thành công',
+        //         'data' => $meal,
+        //     ], 201); // Created HTTP status code (as a new resource is created)
+        // } catch (Exception $e) {
+        //     // Handle potential database or other errors gracefully
+        //     return Response::json([
+        //         'success' => false,
+        //         'message' => 'Có lỗi xảy ra khi thêm món ăn. Vui lòng thử lại.', // Generic error message
+        //         'error' => $e->getMessage(), // Consider logging the actual error for debugging
+        //     ], 500); // Internal Server Error HTTP status code
+        // }
+        // $typeMeal = Type_Meal::all();
+        
+        // $data['id_type_meal']=$request->id_type_meal;
+        
+
         $rules = [
             'name' => 'required|string|max:255',
             'carb' => 'required|max:255',

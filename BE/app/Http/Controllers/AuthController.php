@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Admin;
 use App\Models\Customer;
 use App\Models\Coach;
+use App\Models\Degree;
 use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Validator;
@@ -57,7 +58,6 @@ class AuthController extends Controller
                 'email' => $request->email,
                 'password' => bcrypt($request->password)
             ]);
-        
             if ($user) {
                 // Tạo một bản ghi Customer nếu role_id là 1 (Customer)
                 // if ($user->role_id == 1) {
@@ -94,20 +94,46 @@ class AuthController extends Controller
         ]);
     }
     public function changePassWord(Request $request) {
+        // $validator = Validator::make($request->all(), [
+        //     'old_password' => 'required|string|min:6',
+        //     'new_password' => 'required|string|min:6',
+        // ]);
+
+        // if($validator->fails()){
+        //     return response()->json($validator->errors()->toJson(), 400);
+        // }
+        // $userId = auth()->user()->id;
+
+        // $user = User::where('id', $userId)->update(
+        //             ['password' => bcrypt($request->new_password)]
+        //         );
+
+        // return response()->json([
+        //     'message' => 'User successfully changed password',
+        //     'user' => $user,
+        // ], 201);
         $validator = Validator::make($request->all(), [
             'old_password' => 'required|string|min:6',
             'new_password' => 'required|string|min:6',
         ]);
-
-        if($validator->fails()){
+        
+        if ($validator->fails()) {
             return response()->json($validator->errors()->toJson(), 400);
         }
-        $userId = auth()->user()->id;
-
-        $user = User::where('id', $userId)->update(
-                    ['password' => bcrypt($request->new_password)]
-                );
-
+        
+        $user = auth()->user();
+        
+        // Check if the provided old password matches the current password
+        if (!Hash::check($request->old_password, $user->password)) {
+            return response()->json([
+                'message' => 'The old password is incorrect.'
+            ], 400);
+        }
+        
+        // Update the password
+        $user->password = bcrypt($request->new_password);
+        $user->save();
+        
         return response()->json([
             'message' => 'User successfully changed password',
             'user' => $user,
@@ -116,15 +142,17 @@ class AuthController extends Controller
     
     public function getDataUser() {
         $user = Auth::user();
+        // dd($user->id);
         if ($user->role_id == 1) {
+            // dd($user->role_id);
             // Lấy thông tin của coach nếu role_id là 1 
-            $user = User::join('customer', 'users.id', '=', 'customer.id_user')
-                        ->join('degree', 'users.id', '=' , 'degree.id_customer')
+            $customer = User::join('customer', 'users.id', '=', 'customer.id_user')
+                        ->leftjoin('degree', 'users.id', '=' , 'degree.id_customer')
                         ->select('customer.*', 'users.email','degree.status')
                         ->where('users.id', $user->id) // Lọc theo ID người dùng đã đăng nhập
                         ->first();
                         return response()->json([
-                            'user' => $user,
+                            'customer' => $customer,
                         ], 200);
         } else if($user->role_id==2) {
             // Lấy thông tin của customer nếu role_id không phải là 1

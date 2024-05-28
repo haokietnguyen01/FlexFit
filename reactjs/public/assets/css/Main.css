@@ -1,8 +1,9 @@
 @import url(http://fonts.googleapis.com/css?family=Roboto:400,300,400italic,500,700,100);
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:400,800,300,600,700);
 @import url(http://fonts.googleapis.com/css?family=Abel);
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 body {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Poppins', sans-serif!important;
     position: relative;
     font-weight: 400px;
 }
@@ -70,6 +71,9 @@ body {
 .background-white{
     background-color: white;
 }
+.white{
+    color:white;
+}
 .near_gray{
     color:#858585
 }
@@ -85,3 +89,45 @@ body {
 .block{
     display:block;
 }
+.modal-header{
+    border-bottom: none!important;
+    justify-content: center;
+}
+.modal-content{
+    transform: translateY(190px);
+}
+.modal-createPost{
+    transform: translateY(110px);
+}
+.modal-footer{
+    border-top:none!important;
+    justify-content: center;
+}
+.modal-footer button{
+    width: 100px;
+    background-color:transparent;
+    color:#F53838;
+    border:1px solid #F53838;
+}
+
+.modal-footer button:hover{
+    background-color: #F53838!important;
+    color:white!important;
+}
+.modal-footer .btn-yes{
+    margin-right:20px;
+}
+.modal-body{
+    text-align:center;
+    margin-top:15px;
+}
+.modal-notification .modal-header{
+    background:#F53838;
+    color:white;
+    height:50px;
+}
+.modal-content{
+    width:400px;
+    margin:auto;
+}
+

@@ -38,10 +38,8 @@ class ExercisesController extends Controller
                 'message' => 'bài tập đã được thêm thành công',
                 'data' => $data,
             ], 200);
-        } else {
-            return response()->json(['error' => 'Exercise creation failed'], 400);
         }
-        return response()->json(['error' => 'Validation failed'], 400);
+        return response()->json(['error' => 'create failed'], 400);
     }
     public function searchByName(Request $request)
     {

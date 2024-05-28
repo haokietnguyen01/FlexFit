@@ -20,6 +20,6 @@ class Customer extends Model
         'phone',
         'sex',
         'image',
-
+        'address'
     ];
 }

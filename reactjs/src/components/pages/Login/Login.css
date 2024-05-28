@@ -1,10 +1,13 @@
 #login .login_image img{
     width:550px;
-    height:538px;
+    height:450px;
 }
 #login .login_logo img{
-    width: 70px;
-    height:70px;
+    width: 50px;
+    height:50px;
+}
+#login .login_logo img{
+    margin-right:20px;
 }
 #login span{
     font-weight: 600;
@@ -45,7 +48,7 @@
 #login .login_forgot_password{
     margin-right:11%;
     margin-top:5px;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 }
 #login .login_forgot_password a:hover{
     opacity: 0.8;
@@ -57,18 +60,20 @@
     box-shadow:0px 5px 10px #FD74014D;
 }
 #login .login_border_left{
-    width: 38%; /* Điều chỉnh chiều dài theo nhu cầu */
+    width: 36%; /* Điều chỉnh chiều dài theo nhu cầu */
     height: 2px; /* Điều chỉnh độ dày theo nhu cầu */
     background-color: #C2C2C2; /* Màu sắc của đường ngang */
     margin-top:12px;
-    margin-right:20px;
+    margin-right:24px;
+    margin-left:2px;
 }
 #login .login_border_right{
-    width: 39%; /* Điều chỉnh chiều dài theo nhu cầu */
+    width: 36%; /* Điều chỉnh chiều dài theo nhu cầu */
     height: 2px; /* Điều chỉnh độ dày theo nhu cầu */
     background-color: #C2C2C2; /* Màu sắc của đường ngang */
     margin-top:12px;
-    margin-left:19px;
+    margin-left:24px;
+    margin-right:41px;
 }
 #login .login_btn_sign_up a{
     border: solid 1px #F53855!important;
@@ -83,7 +88,7 @@
 }
 #login .login_btn_sign_up{
     margin-top:12px;
-    margin-bottom: 50px;
+
 }
 
 #login .login_logo_name{

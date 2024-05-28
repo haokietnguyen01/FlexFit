@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\intermediate;
 use App\Models\User;
 use App\Models\Customer;
 use App\Models\Coach;
+use App\Models\Invoice;
 use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
@@ -111,5 +113,19 @@ class AdminController extends Controller
                 ->get();
 
         return response()->json($customers);
+    }
+    public function getListInvoices() {
+        $invoices = intermediate::join('invoices', 'intermediate.id_payment', 'invoices.id')
+        ->join('customer', 'intermediate.id_user', 'customer.id_user')
+        ->select('intermediate.id', 'customer.name', 'customer.phone', 'customer.sex', 'customer.id_user', 
+                'invoices.id_invoice', 'invoices.total_money','invoices.created_at','invoices.updated_at')->get();
+        if($invoices != "[]") {
+            return response()->json([
+                'invoices' => $invoices
+            ]);
+        }
+        return response()->json([
+            'messages' => "No data to display"
+        ]);
     }
 }

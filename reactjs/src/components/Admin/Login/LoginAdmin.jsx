@@ -2,6 +2,7 @@ import "./LoginAdmin.css";
 import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
+import axiosInstance from "../../Axios/axios";
 export default function LoginAdmin() {
     const navigate = useNavigate();
     
@@ -38,15 +39,19 @@ export default function LoginAdmin() {
                 password: inputs.password
             }
             console.log(data)
-            axios.post("http://localhost/BE/public/api/login", data)
+            axiosInstance.post("/login", data)
                 .then(response => {
-                    console.log(response)
-                    var auth={}
-                    auth.admin={}
-                    auth.admin.auth_token=response.data.token
-                    auth.admin.information=response.data.user
-                    localStorage.setItem("authAdmin",JSON.stringify(auth))
-                    navigate("/admin/meal")
+                    if(response.data.user.role_id === 0){
+                        var auth={}
+                        auth.admin={}
+                        auth.admin.auth_token=response.data.token
+                        auth.admin.information=response.data.user
+                        localStorage.setItem("authAdmin",JSON.stringify(auth))
+                        navigate("/admin/meal")
+                    }
+                    else{
+                        alert("Sai tài khoản hoặc mật khẩu")
+                    }
                 })
                 .catch(function (error) {
                     console.log(error)

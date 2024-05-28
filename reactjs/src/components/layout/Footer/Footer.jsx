@@ -1,4 +1,5 @@
 import "./Footer.css";
+import { Link } from "react-router-dom";
 export default function Footer() {
     return (
         <div id="footer">
@@ -13,9 +14,9 @@ export default function Footer() {
                         <p className><span>FlexFit</span> is a private virtual network that has unique features and has high security</p>
                     </div>
                     <div className="col-sm-12 center mb-5 mt-3">
-                        <i className="fa-brands fa-facebook mr" />
-                        <i className="fa-brands fa-instagram mr" />
-                        <i className="fa-brands fa-twitter" />
+                        <Link to={"https://www.facebook.com"}><i className="fa-brands fa-facebook mr" /></Link>
+                        <Link to={"https://www.instagram.com"}><i className="fa-brands fa-instagram mr" /></Link>
+                        <Link to={"https://x.com/?lang=vi"}><i className="fa-brands fa-twitter" /></Link>
                     </div>
                 </div>
             </div>

@@ -16,11 +16,11 @@ class Schedules extends Model
         'name',
         'id_user',
         'date',
-        'time_start',
-        'time_end',
+        // 'time_start',
+        // 'time_end',
         'describe',
         'id_meals',
         'id_exercises',
-        'status'
+        'weight',
     ];
 }

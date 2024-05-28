@@ -19,12 +19,13 @@ return new class extends Migration
             $table->string('name');
             $table->unsignedTinyInteger('id_user')->comment('0: Admin, 1: Customer, 2: Coach')->nullable();
             $table->date('date');
-            $table->time('time_start');
-            $table->time('time_end');
-            $table->longText('describe');
+            // $table->time('time_start');
+            // $table->time('time_end');
+            $table->longText('describe')->nullable();
             $table->enum('status', ['Processed', 'Cancel', 'Waiting'])->nullable();
             $table->integer('id_meals')->nullable();
             $table->integer('id_exercises')->nullable();
+            $table->string('weight');
             $table->timestamps();
         });
     }
